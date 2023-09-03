@@ -4,6 +4,7 @@ import Container from '../Container';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Search from './Search';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
   return (
@@ -16,10 +17,10 @@ const Navbar = () => {
               alt="Curdin Logo"
               height="100"
               width="100"
-              className="hidden md:block cursor-pointer"
+              className="block cursor-pointer"
             />
             <Search />
-            <div>login</div>
+            <UserMenu />
           </div>
         </Container>
       </div>
