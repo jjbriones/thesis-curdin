@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Nunito } from 'next/font/google';
 import Navbar from './components/Navbar/Navbar';
+import React from "react";
 
 const inter = Inter({ subsets: ['latin'] });
 const nunito = Nunito({ subsets: ['latin'] });
