@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   icon: Icon,
 }) => {
   const outlineDesign = outline
-    ? 'bg-white border-black text-black'
+    ? 'bg-white border-gray-500 text-black'
     : 'bg-orange-400 border-orange-300 text-white';
 
   const size = small
