@@ -2,8 +2,12 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Content, Inter, Nunito } from 'next/font/google';
 import Navbar from './components/Navbar/Navbar';
+
 import RegisterModal from './components/modals/RegisterModal';
 import ToasterProvider from './components/contexts/ToasterProvider';
+
+import React from "react";
+
 
 const inter = Inter({ subsets: ['latin'] });
 const nunito = Nunito({ subsets: ['latin'] });
