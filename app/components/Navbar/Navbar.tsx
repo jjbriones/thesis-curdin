@@ -8,7 +8,7 @@ import UserMenu from './UserMenu';
 
 const Navbar = () => {
   return (
-    <div className="w-full bg-white z-10 shadow-sm">
+    <nav className="w-full bg-white z-10 shadow-sm">
       <div className="py-4 border-b-sm">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
@@ -24,7 +24,7 @@ const Navbar = () => {
           </div>
         </Container>
       </div>
-    </div>
+    </nav>
   );
 };
 

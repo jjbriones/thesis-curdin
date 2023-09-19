@@ -43,16 +43,16 @@ const ContentRegisterModal = () => {
         <div className="text-2xl font-bold">Welcome to Curdin!</div>
       </div>
       <Input
-        id="email"
-        label="Email"
+        id="name"
+        label="Name"
         disabled={loading}
         register={register}
         errors={errors}
         required
       />
       <Input
-        id="name"
-        label="Name"
+        id="email"
+        label="Email"
         disabled={loading}
         register={register}
         errors={errors}
@@ -85,6 +85,7 @@ const ContentRegisterModal = () => {
         icon={FaFacebook}
         onClick={() => {}}
       />
+
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2 justify-center">
           <div>Already have an account?</div>
