@@ -6,8 +6,9 @@ import Navbar from './components/Navbar/Navbar';
 import RegisterModal from './components/modals/RegisterModal';
 import ToasterProvider from './components/contexts/ToasterProvider';
 
-import React from "react";
-
+import React from 'react';
+import LoginModal from './components/modals/LoginModal';
+import getCurrentUser from './actions/getCurrentUser';
 
 const inter = Inter({ subsets: ['latin'] });
 const nunito = Nunito({ subsets: ['latin'] });
@@ -17,17 +18,20 @@ export const metadata: Metadata = {
   description: 'Curdin: A Real Estate Application with Predictive Modeling',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={nunito.className}>
         <ToasterProvider />
+        <LoginModal />
         <RegisterModal />
-        <Navbar />
+        <Navbar currentUser={currentUser} />
         {children}
       </body>
     </html>

@@ -5,8 +5,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Search from './Search';
 import UserMenu from './UserMenu';
+import { User } from '@prisma/client';
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <nav className="w-full bg-white z-10 shadow-sm">
       <div className="py-4 border-b-sm">
@@ -20,7 +25,7 @@ const Navbar = () => {
               className="block cursor-pointer"
             />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>

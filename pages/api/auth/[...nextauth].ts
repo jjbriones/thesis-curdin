@@ -2,7 +2,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth, { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-import { CredentialsProvider } from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 
 import prisma from '@/app/libs/prismadb';
@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        email: { label: 'Email', type: 'text', },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
@@ -52,14 +52,14 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  pages:{
+  pages: {
     signIn: '/',
-  }
+  },
   debug: process.env.NODE_ENV === 'development',
-  session:{
+  session: {
     strategy: 'jwt',
   },
-  secret:process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);
