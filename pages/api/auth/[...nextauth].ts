@@ -24,32 +24,33 @@ export const authOptions: AuthOptions = {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+    async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email and password are required');
+            throw new Error('Email and password are required');
         }
 
         const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
+            where: {
+                email: credentials.email,
+            },
         });
 
-        if (!user || !user?.hashedPassword) {
-          throw new Error('No user found');
+        if (!user?.hashedPassword) {
+            throw new Error('No user found');
         }
 
         const isValid = await bcrypt.compare(
-          credentials.password,
-          user.hashedPassword
+            credentials.password,
+            user.hashedPassword
         );
 
         if (!isValid) {
-          throw new Error('Invalid password');
+            throw new Error('Invalid password');
         }
 
         return user;
-      },
+    },
+
     }),
   ],
   pages: {
