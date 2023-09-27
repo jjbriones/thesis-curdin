@@ -2,5 +2,7 @@
     "python.analysis.typeCheckingMode": "basic",
     "cSpell.words": [
         "jsonify"
-    ]
+    ],
+    "WillLuke.nextjs.addTypesOnSave": true,
+    "WillLuke.nextjs.hasPrompted": true
 }
