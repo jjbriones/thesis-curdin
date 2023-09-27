@@ -53,7 +53,7 @@ const Input: React.FC<InputProps> = ({
         id={id}
         type={type}
         disabled={disabled}
-        className={`peer w-full font-light bg-white p-4 pt-6 bg-white border-2 rounded-md focus:pt-6
+        className={`peer w-full font-light bg-white p-4 pt-6 border-2 rounded-md focus:pt-6
         outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-base
         ${forFormatPrice} 
         ${forErrors}`}
