@@ -23,15 +23,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
+  //const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <ToasterProvider />
+        {/*<ToasterProvider />
         <LoginModal />
         <RegisterModal />
-        <Navbar currentUser={currentUser} />
+        <Navbar currentUser={currentUser} />*/}
         {children}
       </body>
     </html>
