@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Search from './Search';
 import UserMenu from './UserMenu';
 import { User } from '@prisma/client';
+import React from "react";
 
 interface NavbarProps {
   currentUser?: User | null;
