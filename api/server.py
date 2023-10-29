@@ -1,10 +1,12 @@
+import pandas as pd
 from flask import Flask, jsonify
 from flask_cors import CORS
 from sklearn.model_selection import train_test_split
-import pandas as pd
 
+from models.ElasticNetRegression import ElasticNet
+from models.LassoRegression import LassoRegression
 from models.LinearRegression import LinearModel
-from models.ElasticNet import ElasticNet
+from models.RidgeRegression import RidgeRegression
 
 app = Flask(__name__)
 CORS(app)
@@ -18,23 +20,25 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # Load model
 elastic = ElasticNet()
+ridge = RidgeRegression()
+lasso = LassoRegression()
 linear = LinearModel()
-
-@app.route('/api/home', methods=['GET'])
-def return_home():
-    return jsonify({"message": "Hello World!"})
 
 @app.route('/api/predict', methods=['GET'])
 def predict():
-    prediction = linear.predict(X_test, y_test)
+    prediction = [
+        elastic.predict([X.iloc[0]]).tolist()[0],
+        ridge.predict([X.iloc[0]]).tolist()[0][0],
+        lasso.predict([X.iloc[0]]).tolist()[0],
+        linear.predict([X.iloc[0]]).tolist()[0][0]
+    ]
 
-    return jsonify({"prediction": prediction.tolist()})
+    response = {
+        "prediction": prediction,
+        "actualPrice": y.iloc[0].values.tolist()[0]
+    }
 
-@app.route('/api/score', methods=['GET'])
-def score():
-    score_prediction = linear.score(X_test, y_test)
-
-    return jsonify({"score": score_prediction})
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
