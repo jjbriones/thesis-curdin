@@ -1,6 +1,7 @@
-from sklearn.linear_model import LinearRegression
-from joblib import dump, load
 import os
+
+from joblib import dump, load
+from sklearn.linear_model import LinearRegression
 
 
 class LinearModel:
@@ -8,14 +9,12 @@ class LinearModel:
         if os.path.exists('models/saved/linear_regression.joblib'):
             self.__model = load('models/saved/linear_regression.joblib')
         else:
-            self.__model = LinearRegression()
+            self.__model = LinearRegression(n_jobs=-1)
 
-    def predict(self, X, y):
-        self._retrain(X, y)
+    def predict(self, X):
+        return self.__model.predict(X)
 
-        return self.__model.predict([[150, 2, 4, 2, 2, 0]])
-
-    def _retrain(self, X, y):
+    def retrain(self, X, y):
         self.__model.fit(X, y)
         dump(self.__model, 'models/saved/linear_regression.joblib')
 
