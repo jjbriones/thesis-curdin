@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "next-dev": "next dev",
-    "dev": "concurrently \"npm run next-dev\" \"cd api && venv\\Scripts\\activate.bat && python server.py\"",
+    "dev": "concurrently \"npm run next-dev\" \"venv\\Scripts\\activate.bat && cd api && python server.py\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

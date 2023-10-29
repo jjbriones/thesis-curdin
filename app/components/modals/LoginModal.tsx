@@ -80,7 +80,7 @@ const ContentLoginModal = () => {
         outline
         label="Continue with Google"
         icon={FaGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google')}
       />
       <Button
         outline
