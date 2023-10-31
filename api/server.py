@@ -12,11 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load data
-<<<<<<< Updated upstream
-df = pd.read_csv('1st_subd.csv')
-=======
 df = pd.read_csv('data/1st_subd.csv')
->>>>>>> Stashed changes
 X = df[['AreaSQM', 'Floors', 'Bedrooms', 'Bathrooms', 'Carport', 'Yard']]
 y = df[['Price_Php_M']]
 
