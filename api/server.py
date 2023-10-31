@@ -26,12 +26,12 @@ linear = LinearModel()
 
 @app.route('/api/predict', methods=['GET'])
 def predict():
-    prediction = [
-        elastic.predict([X.iloc[0]]).tolist()[0],
-        ridge.predict([X.iloc[0]]).tolist()[0][0],
-        lasso.predict([X.iloc[0]]).tolist()[0],
-        linear.predict([X.iloc[0]]).tolist()[0][0]
-    ]
+    prediction = {
+        "Elastic": elastic.predict([X.iloc[0]]).tolist()[0],
+        "Ridge": ridge.predict([X.iloc[0]]).tolist()[0][0],
+        "Lasso": lasso.predict([X.iloc[0]]).tolist()[0],
+        "Plain Linear": linear.predict([X.iloc[0]]).tolist()[0][0]
+    }
 
     response = {
         "prediction": prediction,
