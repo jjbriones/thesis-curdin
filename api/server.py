@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -26,16 +27,33 @@ linear = LinearModel()
 
 @app.route('/api/predict', methods=['GET'])
 def predict():
-    prediction = {
-        "Elastic": elastic.predict([X.iloc[0]]).tolist()[0],
-        "Ridge": ridge.predict([X.iloc[0]]).tolist()[0][0],
-        "Lasso": lasso.predict([X.iloc[0]]).tolist()[0],
-        "Plain Linear": linear.predict([X.iloc[0]]).tolist()[0][0]
-    }
+    elastic_prediction = np.array(elastic.predict(X.values).tolist())
+    ridge_prediction = np.array(ridge.predict(X.values).tolist())
+    lasso_prediction = np.array(lasso.predict(X.values).tolist())
+    linear_prediction = np.array(linear.predict(X.values).tolist())
+
+    models = [
+        {
+            'name': 'Elastic',
+            'prediction': elastic_prediction.flatten().tolist()
+        },
+        {
+            'name': 'Ridge',
+            'prediction': ridge_prediction.flatten().tolist()
+        },
+        {
+            'name': 'Lasso',
+            'prediction': lasso_prediction.flatten().tolist()
+        },
+        {
+            'name': 'Linear',
+            'prediction': linear_prediction.flatten().tolist()
+        }
+    ]
 
     response = {
-        "prediction": prediction,
-        "actualPrice": y.iloc[0].values.tolist()[0]
+        "models": models,
+        "actualPrices": np.array(y.values).flatten().tolist()
     }
 
     return jsonify(response)
