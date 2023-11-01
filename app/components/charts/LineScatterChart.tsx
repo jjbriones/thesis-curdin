@@ -8,7 +8,7 @@ interface DataPoint {
 
 interface Props {
     title: string;
-    data: DataPoint[] | any[];
+    data: DataPoint[];
 }
 
 const LineScatterChart: React.FC<Props> = ({title, data}) => {
