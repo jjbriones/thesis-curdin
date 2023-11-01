@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from flask import Flask, jsonify
 from flask_cors import CORS
-from sklearn.model_selection import train_test_split
 
 from models.ElasticNetRegression import ElasticNet
 from models.LassoRegression import LassoRegression
@@ -16,8 +15,6 @@ CORS(app)
 df = pd.read_csv('data/1st_subd.csv')
 X = df[['AreaSQM', 'Floors', 'Bedrooms', 'Bathrooms', 'Carport', 'Yard']]
 y = df[['Price_Php_M']]
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # Load model
 elastic = ElasticNet()
@@ -35,7 +32,7 @@ def predict():
     models = [
         {
             'name': 'Elastic',
-            'prediction': elastic_prediction.flatten().tolist()
+            'prediction': elastic_prediction.flatten().tolist(),
         },
         {
             'name': 'Ridge',
@@ -51,9 +48,37 @@ def predict():
         }
     ]
 
+    features = [
+        {
+            'name': 'AreaSQM',
+            'value': X['AreaSQM'].values.tolist()
+        },
+        {
+            'name': 'Floors',
+            'value': X['Floors'].values.tolist()
+        },
+        {
+            'name': 'Bedrooms',
+            'value': X['Bedrooms'].values.tolist()
+        },
+        {
+            'name': 'Bathrooms',
+            'value': X['Bathrooms'].values.tolist()
+        },
+        {
+            'name': 'Carport',
+            'value': X['Carport'].values.tolist()
+        },
+        {
+            'name': 'Yard',
+            'value': X['Yard'].values.tolist()
+        },
+    ]
+
     response = {
-        "models": models,
-        "actualPrices": np.array(y.values).flatten().tolist()
+        'models': models,
+        'actualPrices': np.array(y.values).flatten().tolist(),
+        'features': features
     }
 
     return jsonify(response)

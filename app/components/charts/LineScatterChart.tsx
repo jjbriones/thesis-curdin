@@ -12,8 +12,8 @@ interface Props {
 }
 
 const LineScatterChart: React.FC<Props> = ({title, data}) => {
-    const [options, setOptions] = useState({});
-    const [series, setSeries] = useState([]);
+    const [options, setOptions] = useState<ApexCharts.ApexOptions>({});
+    const [series, setSeries] = useState<ApexAxisChartSeries>([]);
 
     useEffect(() => {
         const regression = (data: DataPoint[]) => {
@@ -62,7 +62,7 @@ const LineScatterChart: React.FC<Props> = ({title, data}) => {
             },
             tooltip: {
                 shared: false,
-                intersect: false,
+                intersect: true,
             },
             legend: {
                 show: true
