@@ -23,7 +23,8 @@ pip install -r requirements.txt
 
 Then, run the flask server in server.py in api folder:
 ```bash
-python api/server.py
+cd api
+python server.py
 ```
 
 Then, run the development server:
