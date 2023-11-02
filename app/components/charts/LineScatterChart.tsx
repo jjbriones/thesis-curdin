@@ -1,32 +1,42 @@
 import React, {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
-
-interface DataPoint {
-    x: number;
-    y: number;
-}
+import {Card, Modal} from "flowbite-react";
 
 interface Props {
     title: string;
-    data: DataPoint[];
+    series: ApexAxisChartSeries;
 }
 
-const LineScatterChart: React.FC<Props> = ({title, data}) => {
+const LineScatterChart: React.FC<Props> = ({title, series}) => {
     const [options, setOptions] = useState<ApexCharts.ApexOptions>({});
-    const [series, setSeries] = useState<ApexAxisChartSeries>([]);
+    const [allData, setAllData] = useState<{ x: number; y: number; }[]>([]);
+    const [seriesData, setSeriesData] = useState<ApexAxisChartSeries>(series);
+    const [regressionLine, setRegressionLine] = useState<{ x: number, y: number }[]>([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedData, setSelectedData] = useState<{
+        x: number, y: number, features: { name: string, value: number }[]
+    }>({} as any);
 
     useEffect(() => {
-        const regression = (data: DataPoint[]) => {
-            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
-            let n = data.length;
+        setAllData(() => {
+            let d = [] as { x: number, y: number }[];
 
-            for (let i = 0; i < n; i++) {
-                sumX += data[i].x;
-                sumY += data[i].y;
-                sumXY += data[i].x * data[i].y;
-                sumX2 += data[i].x * data[i].x;
-                sumY2 += data[i].y * data[i].y;
-            }
+            series.forEach((s: { data: any[]; }) => d.push(...s.data));
+
+            return d;
+        });
+
+        const regression = (data: { x: number; y: number; }[]) => {
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+            const n = data.length;
+
+            data.forEach((value: { x: number; y: number; }) => {
+                sumX += value.x;
+                sumY += value.y;
+                sumXY += value.x * value.y;
+                sumX2 += value.x * value.x;
+                sumY2 += value.y * value.y;
+            });
 
             let slope = Number(((n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX)).toFixed(2));
             let intercept = Number(((sumY - slope * sumX) / n).toFixed(2));
@@ -34,38 +44,72 @@ const LineScatterChart: React.FC<Props> = ({title, data}) => {
             return {slope, intercept};
         }
 
-        let min_x = Math.min(...data.map(d => d.x));
-        let max_x = Math.max(...data.map(d => d.x));
+        let min_x = Math.min(...allData.map((d: { x: number; }) => d.x));
+        let max_x = Math.max(...allData.map((d: { x: number; }) => d.x));
 
-        let lineData = [
-            {x: min_x, y: regression(data).slope * min_x + regression(data).intercept},
-            {x: max_x, y: regression(data).slope * max_x + regression(data).intercept}
-        ];
+        if (series.every((s: { data: any[]; }) => s.data.length > 0)) {
+            setRegressionLine(() => {
+                const data = [] as any[];
+                const {slope, intercept} = regression(allData);
 
+                data.push({x: min_x, y: slope * min_x + intercept});
+                data.push({x: max_x, y: slope * max_x + intercept});
+
+                return data;
+            });
+        }
+
+        setSeriesData([
+            ...series,
+            {
+                name: 'Regression Line',
+                type: 'line',
+                data: regressionLine,
+            }
+        ]);
+    }, [series]);
+
+    useEffect(() => {
         setOptions({
             title: {
                 text: title,
             },
             noData: {
-                text: 'Loading...',
+                text: 'No Data Available',
             },
             chart: {
                 height: 350,
                 type: 'line',
+                events: {
+                    dataPointSelection: (event: any, chartContext: any, config: any) => {
+                        const {seriesIndex, dataPointIndex} = config;
+                        const x = chartContext.w.config.series[seriesIndex].data[dataPointIndex].x;
+                        const y = chartContext.w.config.series[seriesIndex].data[dataPointIndex].y;
+                        const features = chartContext.w.config.series[seriesIndex].data[dataPointIndex].features;
+
+                        setSelectedData({x, y, features});
+                        setShowModal(true);
+                    }
+                },
+                zoom: {
+                    enabled: true,
+                    type: 'xy'
+                }
             },
             fill: {
                 type: 'solid',
-                opacity: 0.8
+                opacity: 0.8,
             },
             markers: {
-                size: [5, 1],
+                size: [5, 5],
             },
             tooltip: {
                 shared: false,
                 intersect: true,
             },
             legend: {
-                show: true
+                show: true,
+                position: 'right'
             },
             xaxis: {
                 type: 'numeric',
@@ -86,7 +130,6 @@ const LineScatterChart: React.FC<Props> = ({title, data}) => {
                 }
             },
             yaxis: {
-                tickAmount: 7,
                 labels: {
                     formatter: (value: any) => {
                         return value.toFixed(2);
@@ -103,21 +146,38 @@ const LineScatterChart: React.FC<Props> = ({title, data}) => {
                 }
             }
         });
-
-        setSeries([{
-            name: 'Prediction',
-            type: 'scatter',
-            data: data
-        }, {
-            name: 'Regression Line',
-            type: 'line',
-            data: lineData
-        }]);
-    }, [data]);
+    }, [title]);
 
     return (
         <div className="mixed-chart">
-            <Chart options={options} series={series} type="line" height={350}/>
+            <Chart options={options} series={seriesData} type="line" height={350}/>
+            <Modal onClose={() => setShowModal(false)} show={showModal} size={'sm'}>
+                <Modal.Header/>
+                <Modal.Body>
+                    {/* TODO: Show the features from seriesData like AreaSQM, Floors, Bathrooms, etc. */}
+                    <div className={'flex justify-around flex-col'}>
+                        <Card className={'max-w-sm mb-2'}>
+                            <h5 className={'text-lg font-bold tracking-tight text-gray-900 dark:text-white'}>
+                                Estimated Price
+                            </h5>
+                            <p>
+                                P{selectedData.x} million
+                            </p>
+                        </Card>
+
+                        <h5 className={'text-lg font-bold tracking-tight text-gray-900 dark:text-white'}>
+                            Features
+                        </h5>
+                        <ul>
+                            {selectedData.features?.map((feature, index) => (
+                                <li key={index}>
+                                    {feature.name}: {feature.value}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };
