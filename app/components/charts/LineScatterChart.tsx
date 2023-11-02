@@ -2,6 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Chart from 'react-apexcharts';
 import {Card, Modal} from "flowbite-react";
 
+interface Data {
+    x: number;
+    y: number;
+    features?: { name: string, values: number }[];
+}
+
 interface Props {
     title: string;
     series: ApexAxisChartSeries;
@@ -13,9 +19,7 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
     const [seriesData, setSeriesData] = useState<ApexAxisChartSeries>(series);
     const [regressionLine, setRegressionLine] = useState<{ x: number, y: number }[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const [selectedData, setSelectedData] = useState<{
-        x: number, y: number, features: { name: string, value: number }[]
-    }>({} as any);
+    const [selectedData, setSelectedData] = useState<Data>({} as Data);
 
     useEffect(() => {
         setAllData(() => {
@@ -67,16 +71,10 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
                 data: regressionLine,
             }
         ]);
-    }, [series]);
 
-    useEffect(() => {
         setOptions({
-            title: {
-                text: title,
-            },
-            noData: {
-                text: 'No Data Available',
-            },
+            title: {text: title},
+            noData: {text: 'No Data Available'},
             chart: {
                 height: 350,
                 type: 'line',
@@ -91,26 +89,12 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
                         setShowModal(true);
                     }
                 },
-                zoom: {
-                    enabled: true,
-                    type: 'xy'
-                }
+                zoom: {enabled: true, type: 'xy'}
             },
-            fill: {
-                type: 'solid',
-                opacity: 0.8,
-            },
-            markers: {
-                size: [5, 5],
-            },
-            tooltip: {
-                shared: false,
-                intersect: true,
-            },
-            legend: {
-                show: true,
-                position: 'right'
-            },
+            fill: {type: 'solid', opacity: 0.8},
+            markers: {size: [5, 5]},
+            tooltip: {shared: false, intersect: true},
+            legend: {show: true, position: 'right'},
             xaxis: {
                 type: 'numeric',
                 tickAmount: 10,
@@ -146,7 +130,7 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
                 }
             }
         });
-    }, [title]);
+    }, [title, series]);
 
     return (
         <div className="mixed-chart">
@@ -171,7 +155,7 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
                         <ul>
                             {selectedData.features?.map((feature, index) => (
                                 <li key={index}>
-                                    {feature.name}: {feature.value}
+                                    {feature.name}: {feature.values}
                                 </li>
                             ))}
                         </ul>

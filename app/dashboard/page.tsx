@@ -6,7 +6,7 @@ import {HiChevronDown} from "react-icons/hi";
 
 interface Feature {
     name: string;
-    value: number;
+    values: number;
 }
 
 interface Model {
@@ -40,18 +40,18 @@ export default function Page() {
                             return Number(value.toFixed(2));
                         });
 
-                        // For each Feature, we need to map the name and value
-                        const features: Feature[] = Object.values(data.features).map((feature: Feature) => {
-                            return {
-                                name: feature.name,
-                                value: feature.value[index]
-                            };
-                        });
-
                         return {
                             name: model.name,
                             values: x.map((value, index) => {
-                                return {x: value, y: y[index], features: features};
+                                return {
+                                    x: value, y: y[index],
+                                    features: Object.values(data.features).map((f: Feature) => {
+                                        return {
+                                            name: f.name,
+                                            values: f.values[index]
+                                        };
+                                    })
+                                };
                             })
                         };
                     });
