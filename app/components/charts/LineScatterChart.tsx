@@ -81,12 +81,15 @@ const LineScatterChart: React.FC<Props> = ({title, series}) => {
                 events: {
                     dataPointSelection: (event: any, chartContext: any, config: any) => {
                         const {seriesIndex, dataPointIndex} = config;
-                        const x = chartContext.w.config.series[seriesIndex].data[dataPointIndex].x;
-                        const y = chartContext.w.config.series[seriesIndex].data[dataPointIndex].y;
-                        const features = chartContext.w.config.series[seriesIndex].data[dataPointIndex].features;
 
-                        setSelectedData({x, y, features});
-                        setShowModal(true);
+                        if (chartContext.w.config.series[seriesIndex].type === 'scatter') {
+                            const x = chartContext.w.config.series[seriesIndex].data[dataPointIndex].x;
+                            const y = chartContext.w.config.series[seriesIndex].data[dataPointIndex].y;
+                            const features = chartContext.w.config.series[seriesIndex].data[dataPointIndex].features;
+
+                            setSelectedData({x, y, features});
+                            setShowModal(true);
+                        }
                     }
                 },
                 zoom: {enabled: true, type: 'xy'}
