@@ -22,6 +22,7 @@ ridge = RidgeRegression()
 lasso = LassoRegression()
 linear = LinearModel()
 
+
 @app.route('/api/predict', methods=['GET'])
 def predict():
     elastic_prediction = np.array(elastic.predict(X.values).tolist())
@@ -51,27 +52,27 @@ def predict():
     features = [
         {
             'name': 'AreaSQM',
-            'value': X['AreaSQM'].values.tolist()
+            'values': X['AreaSQM'].values.tolist()
         },
         {
             'name': 'Floors',
-            'value': X['Floors'].values.tolist()
+            'values': X['Floors'].values.tolist()
         },
         {
             'name': 'Bedrooms',
-            'value': X['Bedrooms'].values.tolist()
+            'values': X['Bedrooms'].values.tolist()
         },
         {
             'name': 'Bathrooms',
-            'value': X['Bathrooms'].values.tolist()
+            'values': X['Bathrooms'].values.tolist()
         },
         {
             'name': 'Carport',
-            'value': X['Carport'].values.tolist()
+            'values': X['Carport'].values.tolist()
         },
         {
             'name': 'Yard',
-            'value': X['Yard'].values.tolist()
+            'values': X['Yard'].values.tolist()
         },
     ]
 
@@ -82,6 +83,7 @@ def predict():
     }
 
     return jsonify(response)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
