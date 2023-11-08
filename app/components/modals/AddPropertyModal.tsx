@@ -99,14 +99,20 @@ const AddPropertyModal = () => {
     </div>
   );
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = <div>Halo</div>;
+  }
+
   return (
     <Modal
       title="Add Property"
       isOpen={addPropertyModal.isOpen}
       onClose={addPropertyModal.close}
-      onSubmit={addPropertyModal.close}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       body={bodyContent}
+      secondaryActionLabel={secondActionLabel}
+      secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
     />
   );
 };
