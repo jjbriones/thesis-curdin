@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import LineScatterChart from "@/app/components/charts/LineScatterChart";
 import {Button, Dropdown} from "flowbite-react";
 import {HiChevronDown} from "react-icons/hi";
+import FeatureInputs from "@/app/components/inputs/FeatureInputs";
 
 interface Feature {
     name: string;
@@ -31,7 +32,7 @@ export default function Page() {
                 .then((data) => {
                     setIsFetched(true);
 
-                    const models = data.models.map((model: any, index: number) => {
+                    const models = data.models.map((model: any) => {
                         const x: number[] = Object.values(model.prediction).map((value: any) => {
                             return Number(value.toFixed(2));
                         });
@@ -129,7 +130,7 @@ export default function Page() {
                             ))}
                         </Dropdown>
                         <a href={'#'} className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                            Sales Report
+                            Models Summary
                             <svg className="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
                             </svg>
@@ -137,6 +138,11 @@ export default function Page() {
                     </div>
                 </div>
             </div>
+            {/*
+            Input forms for inputting features such as AreaSQM, Floors, Bedrooms, Bathrooms, Yard, and Carport.
+            Then display the predicted price as Estimated Price with +- 10% range.
+            */}
+            <FeatureInputs/>
         </>
     );
 }
