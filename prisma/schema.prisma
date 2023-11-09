@@ -54,6 +54,7 @@ model Listing{
   createdAt DateTime @default(now())
   category String
   area Float
+  floorNumber Int
   roomCount Int
   bathroomCount Int
   locationValue String

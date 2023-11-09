@@ -2,7 +2,7 @@
 
 import useAddPropertyModal from '@/app/hooks/useAddPropertyModal';
 import Modal from './Modal';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Heading from '../Heading';
 import { categories } from '../Navbar/Categories';
 import CategoryInput from '../inputs/CategoryInput';
@@ -11,6 +11,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
 import BarangaySelect from '../inputs/BarangaySelect';
+import Counter from '../inputs/Counter';
 
 enum STEPS {
   CATEGORY = 0,
@@ -39,6 +40,7 @@ const AddPropertyModal = () => {
       location: null,
       cityLocation: null,
       barangayLocation: null,
+      floorCount: 1,
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: '',
@@ -54,6 +56,9 @@ const AddPropertyModal = () => {
   const location = watch('location');
   const cityLocation = watch('cityLocation');
   const barangayLocation = watch('barangayLocation');
+  const roomCount = watch('roomCount');
+  const floorCount = watch('floorCount');
+  const bathroomCount = watch('bathroomCount');
 
   const Map = useMemo(
     () => dynamic(() => import('../Map'), { ssr: false }),
@@ -147,6 +152,31 @@ const AddPropertyModal = () => {
               ? [10.6713, 122.9511]
               : location?.latlng
           }
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Amenities" />
+        <Counter
+          title="Floors"
+          value={floorCount}
+          onChange={(value) => setCustomValue('floorCount', value)}
+        />
+        <hr />
+        <Counter
+          title="Bedrooms"
+          value={roomCount}
+          onChange={(value) => setCustomValue('roomCount', value)}
+        />
+        <hr />
+        <Counter
+          title="Bathrooms"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue('bathroomCount', value)}
         />
       </div>
     );
