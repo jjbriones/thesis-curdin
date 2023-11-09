@@ -1,30 +1,30 @@
 'use client';
 
-import useCities from '@/app/hooks/useCities';
+import useBarangay from '@/app/hooks/useBarangay';
 import Select from 'react-select';
 
-export type CitySelectValue = {
+export type BarangaySelectValue = {
   label: string;
   value: string;
 };
 
-interface CitySelectProps {
-  value: CitySelectValue;
-  onChange: (value: CitySelectValue) => void;
+interface BarangaySelectProps {
+  value: BarangaySelectValue;
+  onChange: (value: BarangaySelectValue) => void;
 }
 
-const CitySelect: React.FC<CitySelectProps> = ({ value, onChange }) => {
-  const { getAll } = useCities();
+const BarangaySelect: React.FC<BarangaySelectProps> = ({ value, onChange }) => {
+  const { getAll } = useBarangay();
 
   return (
     <div>
-      <h1>City</h1>
+      <h1>Barangay</h1>
       <Select
-        placeholder="City"
+        placeholder="Barangay"
         isClearable
         options={getAll()}
         value={value}
-        onChange={(value) => onChange(value as CitySelectValue)}
+        onChange={(value) => onChange(value as BarangaySelectValue)}
         formatOptionLabel={(option: any) => (
           <div className="flex flex-row items-center gap-3">
             <div>{option.label}</div>
@@ -49,4 +49,4 @@ const CitySelect: React.FC<CitySelectProps> = ({ value, onChange }) => {
   );
 };
 
-export default CitySelect;
+export default BarangaySelect;

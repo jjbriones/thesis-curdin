@@ -57,6 +57,8 @@ model Listing{
   roomCount Int
   bathroomCount Int
   locationValue String
+  cityLocation String
+  barangayLocation String
   userId String @db.ObjectId
   price Int
   carport Int

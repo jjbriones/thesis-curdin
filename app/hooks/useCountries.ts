@@ -1,5 +1,4 @@
 'use client';
-import phil from 'phil-reg-prov-mun-brgy';
 import countries from 'world-countries';
 
 const formattedCountries = countries.map((country) => ({

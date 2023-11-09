@@ -2,7 +2,7 @@
 
 import useAddPropertyModal from '@/app/hooks/useAddPropertyModal';
 import Modal from './Modal';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Heading from '../Heading';
 import { categories } from '../Navbar/Categories';
 import CategoryInput from '../inputs/CategoryInput';
@@ -10,6 +10,7 @@ import CitySelect from '../inputs/CitySelect';
 import { FieldValues, useForm } from 'react-hook-form';
 import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
+import BarangaySelect from '../inputs/BarangaySelect';
 
 enum STEPS {
   CATEGORY = 0,
@@ -36,6 +37,8 @@ const AddPropertyModal = () => {
     defaultValues: {
       category: '',
       location: null,
+      cityLocation: null,
+      barangayLocation: null,
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: '',
@@ -49,6 +52,8 @@ const AddPropertyModal = () => {
 
   const category = watch('category');
   const location = watch('location');
+  const cityLocation = watch('cityLocation');
+  const barangayLocation = watch('barangayLocation');
 
   const Map = useMemo(
     () => dynamic(() => import('../Map'), { ssr: false }),
@@ -116,8 +121,28 @@ const AddPropertyModal = () => {
           value={location}
           onChange={(value) => setCustomValue('location', value)}
         />
+        {location?.label === 'Philippines' ? (
+          <div>
+            <CitySelect
+              value={cityLocation}
+              onChange={(value) => setCustomValue('cityLocation', value)}
+            />
+            {cityLocation?.label === 'BACOLOD CITY (Capital)' ? (
+              <BarangaySelect
+                value={barangayLocation}
+                onChange={(value) => setCustomValue('barangayLocation', value)}
+              />
+            ) : null}
+          </div>
+        ) : null}
 
-        <Map center={location?.latlng} />
+        <Map
+          center={
+            cityLocation?.label === 'BACOLOD CITY (Capital)'
+              ? [10.6713, 122.9511]
+              : location?.latlng
+          }
+        />
       </div>
     );
   }
