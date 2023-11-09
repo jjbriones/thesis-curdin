@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { IoCloseCircleOutline } from 'react-icons/io5';
+import React, {useCallback, useEffect, useState} from 'react';
+import {IoCloseCircleOutline} from 'react-icons/io5';
 import Button from '../Button';
 
 interface ModalProps {
