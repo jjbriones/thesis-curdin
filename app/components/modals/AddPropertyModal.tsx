@@ -117,6 +117,7 @@ const AddPropertyModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading title="Where is the property located?" />
+
         <CountrySelect
           value={location}
           onChange={(value) => setCustomValue('location', value)}
@@ -128,10 +129,14 @@ const AddPropertyModal = () => {
               onChange={(value) => setCustomValue('cityLocation', value)}
             />
             {cityLocation?.label === 'BACOLOD CITY (Capital)' ? (
-              <BarangaySelect
-                value={barangayLocation}
-                onChange={(value) => setCustomValue('barangayLocation', value)}
-              />
+              <div className="mt-8">
+                <BarangaySelect
+                  value={barangayLocation}
+                  onChange={(value) =>
+                    setCustomValue('barangayLocation', value)
+                  }
+                />
+              </div>
             ) : null}
           </div>
         ) : null}
