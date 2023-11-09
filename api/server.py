@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from models.ElasticNetRegression import ElasticNet
@@ -84,6 +84,26 @@ def predict():
 
     return jsonify(response)
 
+@app.route('/api/estimate', methods=['POST'])
+def estimatePrice():
+    predicted_price = 0
+    model = request.json.get("model")
+    features = request.json.get("features")
+    
+    f_pd = pd.DataFrame([features])
+
+    if model == 'Elastic':
+        predicted_price = elastic.predict(f_pd)
+    elif model == 'Ridge':
+        predicted_price = ridge.predict(f_pd)
+    elif model == 'Lasso':
+        predicted_price = lasso.predict(f_pd)
+    elif model == 'Linear':
+        predicted_price = linear.predict(f_pd)
+
+    predicted_price = round(float(predicted_price[0]), 2)
+
+    return jsonify({'estimated': predicted_price})
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
