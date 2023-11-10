@@ -12,6 +12,7 @@ import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
 import BarangaySelect from '../inputs/BarangaySelect';
 import Counter from '../inputs/Counter';
+import ImageUpload from '../inputs/ImageUpload';
 
 enum STEPS {
   CATEGORY = 0,
@@ -59,6 +60,7 @@ const AddPropertyModal = () => {
   const roomCount = watch('roomCount');
   const floorCount = watch('floorCount');
   const bathroomCount = watch('bathroomCount');
+  const imageSrc = watch('imageSrc');
 
   const Map = useMemo(
     () => dynamic(() => import('../Map'), { ssr: false }),
@@ -177,6 +179,18 @@ const AddPropertyModal = () => {
           title="Bathrooms"
           value={bathroomCount}
           onChange={(value) => setCustomValue('bathroomCount', value)}
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Add Property Image" />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomValue('imageSrc', value)}
         />
       </div>
     );
