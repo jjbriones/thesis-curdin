@@ -1,10 +1,9 @@
 'use client';
 
-import { CldUploadWidget, CldUploadButton } from 'next-cloudinary';
+import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
-import { KeyboardEvent, useCallback } from 'react';
+import { useCallback } from 'react';
 import { TbPhotoPlus } from 'react-icons/tb';
-import { UploadButton } from '@bytescale/upload-widget-react';
 
 declare global {
   let cloudinary: any;
