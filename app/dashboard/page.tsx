@@ -1,8 +1,8 @@
 'use client';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import LineScatterChart from "@/app/components/charts/LineScatterChart";
-import {Button, Dropdown} from "flowbite-react";
-import {HiChevronDown} from "react-icons/hi";
+import { Button, Dropdown } from "flowbite-react";
+import { HiChevronDown } from "react-icons/hi";
 import FeatureInputs from "@/app/components/inputs/FeatureInputs";
 
 interface Feature {
@@ -101,26 +101,26 @@ export default function Page() {
                     <div className="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
                         23%
                         <svg className="w-3 h-3 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <LineScatterChart title={'Prediction vs Actual'} series={series}/>
+                    <LineScatterChart title={'Prediction vs Actual'} series={series} />
                 </div>
                 <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5">
                     <div className="flex justify-between items-center pt-5">
                         <Dropdown label={''} dismissOnClick={false} renderTrigger={() =>
-                            <Button color={'gray'}>Selected model <HiChevronDown className={'ml-2'}/> </Button>
+                            <Button color={'gray'}>Selected model <HiChevronDown className={'ml-2'} /> </Button>
                         }>
-                            {models.map((model: any, key: number) => (
+                            {models.map((model: Model, key: number) => (
                                 <Dropdown.Item key={key}>
                                     <div className="flex items-center mb-4">
                                         <input id={model.name} type="checkbox"
-                                               value={model.name}
-                                               onChange={handleSeriesFilter}
-                                               checked={selectedModels.includes(model.name)}
-                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                            value={model.name}
+                                            onChange={handleSeriesFilter}
+                                            checked={selectedModels.includes(model.name)}
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
                                         <label htmlFor={model.name} className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                             {model.name}
@@ -132,7 +132,7 @@ export default function Page() {
                         <a href={'#'} className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
                             Models Summary
                             <svg className="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                             </svg>
                         </a>
                     </div>
@@ -142,7 +142,7 @@ export default function Page() {
             Input forms for inputting features such as AreaSQM, Floors, Bedrooms, Bathrooms, Yard, and Carport.
             Then display the predicted price as Estimated Price with +- 10% range.
             */}
-            <FeatureInputs/>
+            <FeatureInputs />
         </>
     );
 }
