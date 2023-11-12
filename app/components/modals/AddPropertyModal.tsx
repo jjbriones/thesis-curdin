@@ -7,12 +7,16 @@ import Heading from '../Heading';
 import { categories } from '../Navbar/Categories';
 import CategoryInput from '../inputs/CategoryInput';
 import CitySelect from '../inputs/CitySelect';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, set, useForm } from 'react-hook-form';
 import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
 import BarangaySelect from '../inputs/BarangaySelect';
 import Counter from '../inputs/Counter';
 import ImageUpload from '../inputs/ImageUpload';
+import Input from '../inputs/Input';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 enum STEPS {
   CATEGORY = 0,
@@ -25,8 +29,10 @@ enum STEPS {
 
 const AddPropertyModal = () => {
   const addPropertyModal = useAddPropertyModal();
+  const router = useRouter();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -41,11 +47,12 @@ const AddPropertyModal = () => {
       location: null,
       cityLocation: null,
       barangayLocation: null,
+      area: 0,
       floorCount: 1,
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: '',
-      price: 1,
+      price: 0,
       title: '',
       carport: 1,
       yard: false,
@@ -81,6 +88,30 @@ const AddPropertyModal = () => {
 
   const onNext = () => {
     setStep((prev) => prev + 1);
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (step !== STEPS.PRICE) {
+      return onNext();
+    }
+
+    setIsLoading(true);
+
+    axios
+      .post('/api/properties', data)
+      .then(() => {
+        toast.success('Property added successfully!');
+        router.refresh;
+        reset();
+        setStep(STEPS.CATEGORY);
+        addPropertyModal.close();
+      })
+      .catch(() => {
+        toast.error('Something went wrong!');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const actionLabel = useMemo(() => {
@@ -196,12 +227,58 @@ const AddPropertyModal = () => {
     );
   }
 
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Describe the Property" />
+        <div className="flex flex-row items-center gap-2 justify-start text-neutral-500 text-center text-lg font-light">
+          <div>Add the address of the place</div>
+        </div>
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Price" />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
   return (
     <Modal
       title="Add Property"
       isOpen={addPropertyModal.isOpen}
       onClose={addPropertyModal.close}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       body={bodyContent}
       secondaryActionLabel={secondActionLabel}
