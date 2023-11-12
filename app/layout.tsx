@@ -15,23 +15,25 @@ const inter = Inter({ subsets: ['latin'] });
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Curdin',
-    description: 'Curdin: A Real Estate Application with Predictive Modeling',
+  title: 'Curdin',
+  description: 'Curdin: A Real Estate Application with Predictive Modeling',
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
-    const currentUser = await getCurrentUser();
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  const currentUser = await getCurrentUser();
 
-    return (
-        <html lang="en">
-            <body className={nunito.className}>
-                <ToasterProvider />
-                <LoginModal />
-                <AddPropertyModal />
-                <RegisterModal />
-                <Navbar currentUser={currentUser} />
-                {children}
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en">
+      <body className={nunito.className}>
+        <ToasterProvider />
+        <LoginModal />
+        <AddPropertyModal />
+        <RegisterModal />
+        <Navbar currentUser={currentUser} />
+        <div className="pb-20 pt-28">{children}</div>
+      </body>
+    </html>
+  );
 }
