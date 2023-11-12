@@ -13,113 +13,107 @@ import { signIn } from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
 
 const ContentRegisterModal = () => {
-  const registerModal = useRegisterModal();
-  const loginModal = useLoginModal();
-  const [loading, setLoading] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: { name: '', email: '', password: '' },
-  });
+    const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
+    const [loading, setLoading] = useState(false);
+    const { register, handleSubmit, formState: { errors }, } = useForm<FieldValues>({
+        defaultValues: { name: '', email: '', password: '' },
+    });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setLoading(true);
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        setLoading(true);
 
-    axios
-      .post('/api/register', data)
-      .then(() => {
+        axios.post('/api/register', data)
+            .then(() => registerModal.close())
+            .catch((error) => toast.error("Couldn't register user"))
+            .finally(() => setLoading(false));
+    };
+
+    const toggle = useCallback(() => {
         registerModal.close();
-      })
-      .catch((error) => {
-        toast.error("Couldn't register user");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+        loginModal.open();
+    }, [loginModal, registerModal]);
 
-  const toggle = useCallback(() => {
-    registerModal.close();
-    loginModal.open();
-  }, [loginModal, registerModal]);
-
-  const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <div className="text-start">
-        <div className="text-2xl font-bold">Welcome to Curdin!</div>
-      </div>
-      <Input
-        id="name"
-        label="Name"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="email"
-        label="Email"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="password"
-        label="Password"
-        type="password"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
-      />
-    </div>
-  );
-
-  const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
-      <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        icon={FaGoogle}
-        onClick={() => signIn('google')}
-      />
-      <Button
-        outline
-        label="Continue with Facebook"
-        icon={FaFacebook}
-        onClick={() => {}}
-      />
-
-      <div className="text-neutral-500 text-center mt-4 font-light">
-        <div className="flex flex-row items-center gap-2 justify-center">
-          <div>Already have an account?</div>
-          <div
-            onClick={toggle}
-            className="text-neutral-800 cursor-pointer hover:underline"
-          >
-            Log in
-          </div>
+    const bodyContent = (
+        <div className="flex flex-col gap-4">
+            <div className="text-start">
+                <div className="text-2xl font-bold">Welcome to Curdin!</div>
+            </div>
+            <Input
+                id="name"
+                label="Name"
+                disabled={loading}
+                register={register}
+                errors={errors}
+                required
+            />
+            <Input
+                id="email"
+                label="Email"
+                disabled={loading}
+                register={register}
+                errors={errors}
+                required
+            />
+            <Input
+                id="password"
+                label="Password"
+                type="password"
+                disabled={loading}
+                register={register}
+                errors={errors}
+                required
+            />
         </div>
-      </div>
-    </div>
-  );
+    );
 
-  return (
-    <Modal
-      disabled={loading}
-      isOpen={registerModal.isOpen}
-      actionLabel="Continue"
-      onSubmit={handleSubmit(onSubmit)}
-      onClose={registerModal.close}
-      body={bodyContent}
-      title={'Sign Up'}
-      footer={footerContent}
-    />
-  );
+    const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr />
+            <Button
+                outline
+                label="Continue with Google"
+                icon={FaGoogle}
+                onClick={() => signIn('google')}
+            />
+            <Button
+                outline
+                label="Continue with Facebook"
+                icon={FaFacebook}
+                onClick={() => { }}
+            />
+
+            <div className="text-neutral-500 text-center mt-4 font-light">
+                <div className="flex flex-row items-center gap-2 justify-center">
+                    <div>Already have an account?</div>
+                    <div
+                        onClick={toggle}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                toggle();
+                            }
+                        }}
+                        className="text-neutral-800 cursor-pointer hover:underline"
+                    >
+                        Log in
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    return (
+        <Modal
+            disabled={loading}
+            isOpen={registerModal.isOpen}
+            actionLabel="Continue"
+            onSubmit={handleSubmit(onSubmit)}
+            onClose={registerModal.close}
+            body={bodyContent}
+            title={'Sign Up'}
+            footer={footerContent}
+        />
+    );
 };
 
 export default ContentRegisterModal;
