@@ -44,9 +44,9 @@ const AddPropertyModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       category: '',
-      location: null,
-      cityLocation: null,
-      barangayLocation: null,
+      location: '',
+      cityLocation: '',
+      barangayLocation: '',
       area: 0,
       floorCount: 1,
       roomCount: 1,
@@ -107,7 +107,7 @@ const AddPropertyModal = () => {
         addPropertyModal.close();
       })
       .catch(() => {
-        toast.error('Something went wrong!');
+        toast.error('Please fill in all the fields');
       })
       .finally(() => {
         setIsLoading(false);
