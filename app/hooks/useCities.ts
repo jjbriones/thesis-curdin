@@ -10,10 +10,10 @@ const formattedCities = phil.getCityMunByProvince('0645').map((city) => ({
 const useCities = () => {
   const getAll = () => formattedCities;
 
-  const getByValue = (value: string) => {
+  const getCityValue = (value: string) => {
     return formattedCities.find((city) => city.value === value);
   };
-  return { getAll, getByValue };
+  return { getAll, getCityValue };
 };
 
 export default useCities;
