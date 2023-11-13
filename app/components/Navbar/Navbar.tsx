@@ -15,7 +15,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const router = useRouter();
   return (
-    <nav className="w-full bg-white z-10 shadow-sm">
+    <nav className="w-full bg-white z-10 ">
       <div className="py-4 border-b-sm">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
