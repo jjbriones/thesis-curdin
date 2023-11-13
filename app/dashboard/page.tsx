@@ -71,7 +71,7 @@ export default function Page() {
     }, [isFetched]);
 
     useEffect(() => {
-        setSeries(models.filter((model) => selectedModels.includes(model.name)).map((m: Model) => {
+        setSeries(models.filter((model: Model) => selectedModels.includes(model.name)).map((m: Model) => {
             return {
                 name: m.name,
                 type: 'scatter',
@@ -84,7 +84,7 @@ export default function Page() {
         if (event.target.checked) {
             setSelectedModels([...selectedModels, event.target.value])
         } else {
-            setSelectedModels(selectedModels.filter((model) => model !== event.target.value));
+            setSelectedModels(selectedModels.filter((model: Model) => model !== event.target.value));
         }
     }
 
