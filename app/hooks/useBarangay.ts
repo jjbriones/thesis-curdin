@@ -10,10 +10,10 @@ const formattedBarangays = phil.getBarangayByMun('064501').map((brgy) => ({
 const useBarangay = () => {
   const getAll = () => formattedBarangays;
 
-  const getByValue = (value: string) => {
+  const getBarangayValue = (value: string) => {
     return formattedBarangays.find((brgy) => brgy.value === value);
   };
-  return { getAll, getByValue };
+  return { getAll, getBarangayValue };
 };
 
 export default useBarangay;
