@@ -1,7 +1,7 @@
 'use client';
 
 import useCountries from '@/app/hooks/useCountries';
-import { SafeUser } from '@/app/types';
+import { SafeListing, SafeUser } from '@/app/types';
 import { Listing, Reservation } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
@@ -11,9 +11,10 @@ import HeartButton from '../HeartButton';
 import useBarangay from '@/app/hooks/useBarangay';
 import useCities from '@/app/hooks/useCities';
 import { get } from 'http';
+import Button from '../Button';
 
 interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -89,10 +90,19 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="font-semibold text-lg">₱{data.price}</div>
+        <div className="font-semibold text-lg">{data.title}</div>
         <div className="font-light text-neutral-500">
-          {data.roomCount} bds | {data.bathroomCount} ba |
+          {data.roomCount} bds | {data.bathroomCount} ba | {data.cityLocation}
         </div>
+        <div className="font-semibold">₱{data.price}</div>
+        {onAction && actionLabel && (
+          <Button
+            disabled={disabled}
+            small
+            label={actionLabel}
+            onClick={handleCancel}
+          />
+        )}
       </div>
     </div>
   );
