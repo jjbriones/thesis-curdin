@@ -1,22 +1,22 @@
 'use client';
 
-import { AiOutlineMenu } from 'react-icons/ai';
-import Image from 'next/image';
-import { KeyboardEvent, useCallback, useState } from 'react';
+import {AiOutlineMenu} from 'react-icons/ai';
+import React, {KeyboardEvent, useCallback, useState} from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
-import { signOut } from 'next-auth/react';
-import { SafeUser } from '@/app/types';
+import {signOut} from 'next-auth/react';
+import {SafeUser} from '@/app/types';
 import Avatar from './Avatar';
 import useAddPropertyModal from '@/app/hooks/useAddPropertyModal';
-import Link from 'next/link';
+import {useRouter} from "next/navigation";
 
 interface UserMenuProps {
     currentUser?: SafeUser | null;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
+    const router = useRouter();
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const addPropertyModal = useAddPropertyModal();
@@ -38,9 +38,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     }}
                     className=" p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
                 >
-                    <AiOutlineMenu />
+                    <AiOutlineMenu/>
                     <div className="hidden md:block">
-                        <Avatar src={currentUser?.image} />
+                        <Avatar src={currentUser?.image}/>
                     </div>
                 </div>
             </div>
@@ -53,17 +53,17 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                     onClick={addPropertyModal.open}
                                     content="Add Property"
                                 />
-                                <MenuItem onClick={() => { }} content="Favorites" />
-                                <MenuItem onClick={() => { }} content="Reservations" />
-                                <MenuItem onClick={() => { }} content={<Link href={'/dashboard'}>Dashboard</Link>} />
+                                <MenuItem content="Favorites"/>
+                                <MenuItem content="Reservations"/>
+                                <MenuItem content={'Dashboard'} onClick={() => router.push("/dashboard")}/>
 
-                                <hr />
-                                <MenuItem onClick={() => signOut()} content="Logout" />
+                                <hr/>
+                                <MenuItem onClick={() => signOut()} content="Logout"/>
                             </>
                         ) : (
                             <>
-                                <MenuItem onClick={loginModal.open} content="Login" />
-                                <MenuItem onClick={registerModal.open} content="Sign Up" />
+                                <MenuItem onClick={loginModal.open} content="Login"/>
+                                <MenuItem onClick={registerModal.open} content="Sign Up"/>
                             </>
                         )}
                     </div>
