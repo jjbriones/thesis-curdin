@@ -9,7 +9,6 @@ import CategoryInput from '../inputs/CategoryInput';
 import CitySelect from '../inputs/CitySelect';
 import RegionSelect from '../inputs/RegionSelect';
 import { FieldValues, SubmitHandler, set, useForm } from 'react-hook-form';
-import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
 import BarangaySelect from '../inputs/BarangaySelect';
 import Counter from '../inputs/Counter';
@@ -18,7 +17,6 @@ import Input from '../inputs/Input';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import phil from 'phil-reg-prov-mun-brgy';
 
 enum STEPS {
   CATEGORY = 0,
@@ -30,7 +28,6 @@ enum STEPS {
 }
 
 const AddPropertyModal = () => {
-  console.log(phil.regions);
   const addPropertyModal = useAddPropertyModal();
   const router = useRouter();
 
