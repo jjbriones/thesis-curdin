@@ -84,7 +84,7 @@ export default function Page() {
         if (event.target.checked) {
             setSelectedModels([...selectedModels, event.target.value])
         } else {
-            setSelectedModels(selectedModels.filter((model: Model) => model !== event.target.value));
+            setSelectedModels(selectedModels.filter((model: string) => model !== event.target.value));
         }
     }
 
