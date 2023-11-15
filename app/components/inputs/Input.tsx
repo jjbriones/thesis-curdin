@@ -29,18 +29,6 @@ const Input: React.FC<InputProps> = ({
     ? 'border-red-500 focus:border-orange-400'
     : 'border-neutral-300 focus:border-orange-400';
 
-  /*
-
-<label
-        className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin[0] scale-75
-        peer-placeholder-shown:scale-75 peer-placeholder-shown:translate-y-0 peer-focus:scale-75
-        peer-focus:-translate-y-4 peer-focus:text-orange-400 peer-focus:text-sm text-neutral-400
-        ${formatPrice ? 'left-9' : 'left-3'}
-        s${errors[id] ? 'text-orange-400' : 'text-zinc-400'}`}
-      >
-      
-      */
-
   return (
     <div className="w-full relative">
       {formatPrice && (
