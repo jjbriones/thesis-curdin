@@ -17,6 +17,7 @@ import Input from '../inputs/Input';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import AreaInput from '../inputs/AreaInput';
 
 enum STEPS {
   CATEGORY = 0,
@@ -68,6 +69,8 @@ const AddPropertyModal = () => {
   const floorCount = watch('floorCount');
   const bathroomCount = watch('bathroomCount');
   const imageSrc = watch('imageSrc');
+  const area = watch('area');
+  const carport = watch('carport');
 
   const Map = useMemo(
     () => dynamic(() => import('../Map'), { ssr: false }),
@@ -194,6 +197,12 @@ const AddPropertyModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading title="Amenities" />
+        <AreaInput
+          title="Area"
+          value={area}
+          onChange={(value) => setCustomValue('area', value)}
+        />
+        <hr />
         <Counter
           title="Floors"
           value={floorCount}
@@ -210,6 +219,12 @@ const AddPropertyModal = () => {
           title="Bathrooms"
           value={bathroomCount}
           onChange={(value) => setCustomValue('bathroomCount', value)}
+        />
+        <hr />
+        <Counter
+          title="Carport"
+          value={carport}
+          onChange={(value) => setCustomValue('carport', value)}
         />
       </div>
     );

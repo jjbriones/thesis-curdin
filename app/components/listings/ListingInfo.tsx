@@ -21,6 +21,8 @@ interface ListingInfoProps {
   bathroomCount: number;
   locationValue: string;
   price: number;
+  area: number;
+  carport: number;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
@@ -31,6 +33,8 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   bathroomCount,
   locationValue,
   price,
+  area,
+  carport,
 }) => {
   return (
     <div className="col-span-4 flex flex-col gap-8">
@@ -39,8 +43,10 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           Property by {user?.name}
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
+          <div>{area} SQM</div>
           <div>{roomCount} Bedrooms</div>
           <div>{bathroomCount} Bathrooms</div>
+          <div>{carport} Cars</div>
         </div>
       </div>
       <hr />
@@ -54,7 +60,6 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <hr />
       <div className="text-lg font-light text-neutral-500">{description}</div>
       <hr />
-      <Map center={[13, 122]} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import ListingHead from '@/app/components/listings/ListingHead';
 import ListingInfo from '@/app/components/listings/ListingInfo';
 import { SafeListing, SafeUser } from '@/app/types';
 import { Reservation } from '@prisma/client';
+import { list } from 'postcss';
 import { useMemo } from 'react';
 
 interface ListingClientProps {
@@ -45,6 +46,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
               price={listing.price}
+              area={listing.area}
+              carport={listing.carport}
             />
           </div>
         </div>
