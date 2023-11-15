@@ -84,12 +84,13 @@ def predict():
 
     return jsonify(response)
 
+
 @app.route('/api/estimate', methods=['POST'])
 def estimatePrice():
     predicted_price = 0
     model = request.json.get("model")
     features = request.json.get("features")
-    
+
     f_pd = pd.DataFrame([features])
 
     if model == 'Elastic':
@@ -104,6 +105,12 @@ def estimatePrice():
     predicted_price = round(float(predicted_price[0]), 2)
 
     return jsonify({'estimated': predicted_price})
+
+
+@app.route('/api/actual_price', methods=['GET'])
+def getActualPrice():
+    return jsonify({'actual': np.array(y.values).flatten().tolist()})
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
