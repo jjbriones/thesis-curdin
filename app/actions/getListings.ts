@@ -26,6 +26,7 @@ export default async function getListings() {
             body: JSON.stringify({ model: 'Ridge', features: features }),
         };
 
+        // TODO: to be fixed, DO NOT UNCOMMENT
         // const estimatedPrice = await fetch('http://127.0.0.1:8080/api/estimate', options);
 
         const safeListings = listings.map((listing) => ({
