@@ -56,7 +56,7 @@ const AddPropertyModal = () => {
       price: 0,
       title: '',
       carport: 1,
-      yard: false,
+      yard: 0,
       description: '',
     },
   });
@@ -71,6 +71,7 @@ const AddPropertyModal = () => {
   const imageSrc = watch('imageSrc');
   const area = watch('area');
   const carport = watch('carport');
+  const yard = watch('yard');
 
   const Map = useMemo(
     () => dynamic(() => import('../Map'), { ssr: false }),
@@ -225,6 +226,12 @@ const AddPropertyModal = () => {
           title="Carport"
           value={carport}
           onChange={(value) => setCustomValue('carport', value)}
+        />
+        <hr />
+        <Counter
+          title="Yard"
+          value={yard}
+          onChange={(value) => setCustomValue('yard', value)}
         />
       </div>
     );
