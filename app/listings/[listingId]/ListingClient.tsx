@@ -48,6 +48,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               price={listing.price}
               area={listing.area}
               carport={listing.carport}
+              yard={listing.yard}
             />
           </div>
         </div>

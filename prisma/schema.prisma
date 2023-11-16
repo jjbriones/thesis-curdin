@@ -62,7 +62,7 @@ model Listing {
   userId           String   @db.ObjectId
   price            Int
   carport          Int
-  yard             Boolean
+  yard             Int
 
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
