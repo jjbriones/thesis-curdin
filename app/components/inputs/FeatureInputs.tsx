@@ -191,7 +191,6 @@ function FeatureInputs() {
     });
     const [estimatedPrice, setEstimatedPrice] = useState(0.0);
     const [estimatedPriceRange, setEstimatedPriceRange] = useState([0.0, 0.0]);
-    const [loading, setLoading] = useState(false);
 
     return (
         <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
