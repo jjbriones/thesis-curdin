@@ -61,6 +61,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   content={'Dashboard'}
                   onClick={() => router.push('/dashboard')}
                 />
+                <MenuItem
+                  content={'My Properties'}
+                  onClick={() => router.push('/properties')}
+                />
 
                 <hr />
                 <MenuItem onClick={() => signOut()} content="Logout" />
