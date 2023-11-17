@@ -54,7 +54,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   content="Add Property"
                 />
                 <MenuItem content="Favorites" />
-                <MenuItem content="Reservations" />
                 <MenuItem
                   content={'Dashboard'}
                   onClick={() => router.push('/dashboard')}
