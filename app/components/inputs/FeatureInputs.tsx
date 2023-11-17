@@ -1,13 +1,9 @@
 'use client';
-import { ChangeEvent, useState, MouseEvent } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 import { Card } from 'flowbite-react';
+import { Feature } from '@/app/types';
 
-function Forms({
-    features,
-    setFeatures,
-    setEstimatedPrice,
-    setEstimatedPriceRange,
-}) {
+function Forms({ features, setFeatures, setEstimatedPrice, setEstimatedPriceRange }) {
     const [selectedModel, setSelectedModel] = useState('Ridge');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,8 +14,7 @@ function Forms({
                 ...features,
                 [event.target.name]: value,
             });
-        }
-        else {
+        } else {
             event.stopPropagation();
         }
     };
@@ -50,102 +45,25 @@ function Forms({
     return (
         <form>
             <div className="grid grid-cols-1 gap-6">
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="AreaSQM"
-                    >
-                        AreaSQM
-                    </label>
-                    <input
-                        id="AreaSQM"
-                        type="text"
-                        required
-                        name="AreaSQM"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="Floors"
-                    >
-                        Floors
-                    </label>
-                    <input
-                        id="Floors"
-                        type="text"
-                        required
-                        name="Floors"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="Bedrooms"
-                    >
-                        Bedrooms
-                    </label>
-                    <input
-                        id="Bedrooms"
-                        type="text"
-                        required
-                        name="Bedrooms"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="Bathrooms"
-                    >
-                        Bathrooms
-                    </label>
-                    <input
-                        id="Bathrooms"
-                        type="text"
-                        required
-                        name="Bathrooms"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="Yard"
-                    >
-                        Carport
-                    </label>
-                    <input
-                        id="Yard"
-                        type="text"
-                        required
-                        name="Yard"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
-                <div>
-                    <label
-                        className="text-gray-700 dark:text-gray-200"
-                        htmlFor="Carport"
-                    >
-                        Yard
-                    </label>
-                    <input
-                        id="Carport"
-                        type="text"
-                        required
-                        name="Carport"
-                        onChange={handleChange}
-                        className="w-full px-4 py-2 mt-2 text-base text-gray-700 placeholder-gray-400 bg-gray-100 border border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:ring-0 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:ring-0"
-                    />
-                </div>
+                {Object.keys(features).map((feature, index) => (
+                    <div key={index}>
+                        <label
+                            htmlFor={feature}
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                            {feature}
+                        </label>
+                        <input
+                            type="number"
+                            id={feature}
+                            name={feature}
+                            min={0}
+                            required
+                            onChange={handleChange}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        />
+                    </div>
+                ))}
                 <div>
                     <label
                         htmlFor="model"
@@ -181,7 +99,7 @@ function Forms({
 }
 
 function FeatureInputs() {
-    const [features, setFeatures] = useState({
+    const [features, setFeatures] = useState<Feature>({
         AreaSQM: 0,
         Floors: 0,
         Bedrooms: 0,
