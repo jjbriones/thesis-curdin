@@ -1,5 +1,6 @@
 import prisma from '@/app/libs/prismadb';
-import { list } from 'postcss';
+import getEstimatedPrice from './getEstimatedPrice';
+import { Feature } from '../types';
 
 export default async function getListings() {
     try {
@@ -9,32 +10,24 @@ export default async function getListings() {
             },
         });
 
-        const features = listings.map((listing) => ({
-            AreaSQM: listing.area,
-            Floors: listing.floorCount,
-            Bedrooms: listing.roomCount,
-            Bathrooms: listing.bathroomCount,
-            Carport: listing.carport,
-            Yard: listing.yard
+        const features: Feature[] = listings.map((listing: {
+            area: number; floorCount: number; roomCount: number; bathroomCount: number; carport: number; yard: number;
+        }) => ({
+            'AreaSQM': listing.area,
+            'Floors': listing.floorCount,
+            'Bedrooms': listing.roomCount,
+            'Bathrooms': listing.bathroomCount,
+            'Yard': listing.yard,
+            'Carport': listing.carport
         }));
 
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ model: 'Ridge', features: features }),
-        };
+        const estimatedPrice: [] = await getEstimatedPrice('Lasso', features);
 
-        // TODO: to be fixed, DO NOT UNCOMMENT
-        // const estimatedPrice = await fetch('http://127.0.0.1:8080/api/estimate', options);
-
-        const safeListings = listings.map((listing) => ({
+        return listings.map((listing: { createdAt: { toISOString: () => any; }; }) => ({
             ...listing,
             createdAt: listing.createdAt.toISOString(),
+            estimatedPrice: estimatedPrice.shift(),
         }));
-
-        return safeListings;
     } catch (error: any) {
         throw new Error(error);
     }
