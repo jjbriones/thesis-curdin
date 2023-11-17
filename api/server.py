@@ -87,11 +87,14 @@ def predict():
 
 @app.route('/api/estimate', methods=['POST'])
 def estimatePrice():
-    predicted_price = 0
+    predicted_price: np.ndarray = np.array([0.0])
     model = request.json.get("model")
     features = request.json.get("features")
 
-    f_pd = pd.DataFrame([features])
+    if isinstance(features, list):
+        f_pd = pd.DataFrame(features)
+    else:
+        f_pd = pd.DataFrame([features])
 
     if model == 'Elastic':
         predicted_price = elastic.predict(f_pd)
@@ -102,9 +105,18 @@ def estimatePrice():
     elif model == 'Linear':
         predicted_price = linear.predict(f_pd)
 
-    predicted_price = round(float(predicted_price[0]), 2)
+    if predicted_price.shape != (1, 1) and len(predicted_price.shape) > 1:
+        estimated = []
+        p = predicted_price.flatten().tolist()
 
-    return jsonify({'estimated': predicted_price})
+        for i in range(len(p)):
+            rounded = round(p[i], 2)
+            estimated.append(rounded)
+            
+        return jsonify({'estimated': estimated})
+    
+
+    return jsonify({'estimated': round(float(predicted_price[0]), 2)})
 
 
 @app.route('/api/actual_price', methods=['GET'])
