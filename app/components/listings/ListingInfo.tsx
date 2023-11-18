@@ -55,7 +55,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
                         <div>{yard ? 'Has' : 'No'} Yard</div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-right">
                     <p className="font-semibold text-lg">Estimated Price</p>
                     <p className="font-light text-neutral-500">₱ {estimatedPrice} million</p>
                 </div>
