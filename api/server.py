@@ -105,16 +105,16 @@ def estimatePrice():
     elif model == 'Linear':
         predicted_price = linear.predict(f_pd)
 
-    if predicted_price.shape != (1, 1) and len(predicted_price.shape) > 1:
+    if (predicted_price.shape != (1, 1) and len(predicted_price.shape) > 1) or predicted_price.shape[0] > 1:
         estimated = []
         p = predicted_price.flatten().tolist()
 
         for i in range(len(p)):
             rounded = round(p[i], 2)
             estimated.append(rounded)
-            
+
         return jsonify({'estimated': estimated})
-    
+
 
     return jsonify({'estimated': round(float(predicted_price[0]), 2)})
 
