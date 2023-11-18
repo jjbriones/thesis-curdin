@@ -24,8 +24,9 @@ interface ListingInfoProps {
   price: number;
   area: number;
   carport: number;
-  yard: boolean;
+  yard: number;
   estimatedPrice?: number;
+  floorCount: number;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
@@ -40,11 +41,15 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   carport,
   yard,
   estimatedPrice,
+  floorCount,
 }) => {
   const [predictedPrice, setPredictedPrice] = useState({
     value: estimatedPrice?.toFixed(2) ?? 0,
     discount: 0.0,
+    minRange: 0,
+    maxRange: 0,
   });
+  const [range, setRange] = useState('');
 
   useEffect(() => {
     if (estimatedPrice === undefined) return;
@@ -53,19 +58,36 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       setPredictedPrice({
         value: (estimatedPrice * 0.8).toFixed(2),
         discount: 20,
+        minRange: estimatedPrice * 0.8 * 0.98,
+        maxRange: estimatedPrice * 0.8 * 1.02,
       });
     } else if (category?.label.includes('Standard')) {
       setPredictedPrice({
         value: (estimatedPrice * 0.7).toFixed(2),
         discount: 35,
+        minRange: estimatedPrice * 0.7 * 0.98,
+        maxRange: estimatedPrice * 0.7 * 1.02,
       });
     } else {
       setPredictedPrice({
         value: estimatedPrice.toFixed(2),
         discount: 0,
+        minRange: estimatedPrice * 0.98,
+        maxRange: estimatedPrice * 1.02,
       });
     }
-  }, [category?.label]);
+  }, [category?.label, predictedPrice, setPredictedPrice]);
+
+  useEffect(() => {
+    setRange(
+      '₱' +
+        predictedPrice.minRange.toFixed(2) +
+        ' million - ₱' +
+        predictedPrice.maxRange.toFixed(2) +
+        ' million'
+    );
+  }, [predictedPrice]);
+
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex justify-between">
@@ -75,17 +97,16 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           </div>
           <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
             <div>{area} SQM</div>
+            <div>{floorCount} floors</div>
             <div>{roomCount} Bedrooms</div>
             <div>{bathroomCount} Bathrooms</div>
             <div>{carport} Cars</div>
-            <div>{yard ? 'Has' : 'No'} Yard</div>
+            <div>{yard ? 'Has a' : 'No'} Yard</div>
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <p className="font-semibold text-lg">Estimated Price</p>
-          <p className="font-light text-neutral-500">
-            ₱ {predictedPrice.value} million
-          </p>
+          <p className="font-light text-neutral-500">{range}</p>
         </div>
       </div>
 

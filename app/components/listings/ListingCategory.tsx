@@ -19,7 +19,11 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
   const [price, setPrice] = useState({
     value: '',
     discount: 0.0,
+    minRange: 0,
+    maxRange: 0,
   });
+
+  const [range, setRange] = useState('');
 
   useEffect(() => {
     if (estimatedPrice === undefined) return;
@@ -28,19 +32,35 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
       setPrice({
         value: (estimatedPrice * 0.8).toFixed(2),
         discount: 20,
+        minRange: estimatedPrice * 0.8 * 0.98,
+        maxRange: estimatedPrice * 0.8 * 1.02,
       });
     } else if (label.includes('Standard')) {
       setPrice({
         value: (estimatedPrice * 0.7).toFixed(2),
         discount: 35,
+        minRange: estimatedPrice * 0.7 * 0.98,
+        maxRange: estimatedPrice * 0.7 * 1.02,
       });
     } else {
       setPrice({
         value: estimatedPrice.toFixed(2),
         discount: 0,
+        minRange: estimatedPrice * 0.98,
+        maxRange: estimatedPrice * 1.02,
       });
     }
-  }, [label]);
+  }, [label, price, setPrice]);
+
+  useEffect(() => {
+    setRange(
+      '₱' +
+        price.minRange.toFixed(2) +
+        ' million - ₱' +
+        price.maxRange.toFixed(2) +
+        ' million'
+    );
+  }, [price]);
 
   return (
     <div className="flex justify-between">
@@ -53,9 +73,11 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center">
-        <p className="text-neutral-500">P{price.value} million</p>
-        {price.discount > 0 && <p className="flex items-center ml-1"></p>}
+      <div>
+        <div className="font-semibold text-lg">Estimated Price Range</div>
+        <div className="flex items-center">
+          <p className="text-neutral-500">{range}</p>
+        </div>
       </div>
     </div>
   );
