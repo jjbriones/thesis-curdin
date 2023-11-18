@@ -40,7 +40,7 @@ export default async function getListings(params: IListingsParams) {
       })
     );
 
-    const estimatedPrice: [] = await getEstimatedPrice('Lasso', features);
+    const estimatedPrice: [] = await getEstimatedPrice('Linear', features);
 
     return listings.map(
       (listing: { createdAt: { toISOString: () => any } }) => ({
