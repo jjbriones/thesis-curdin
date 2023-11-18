@@ -2,12 +2,12 @@ import { Feature, ModelType } from "../types";
 
 export default async function getEstimatedPrice(model: ModelType, features: Feature | Feature[]) {
     try {
-        const options = {
+        const options: RequestInit = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ model: 'Ridge', features: features }),
+            body: JSON.stringify({ model: model, features: features }),
         };
 
         const estimated = fetch('http://127.0.0.1:8080/api/estimate', options)
