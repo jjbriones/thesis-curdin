@@ -57,11 +57,13 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
                 </div>
             </div>
             <div className="flex items-center">
-                <p className="text-neutral-500">P{price.value} million</p>
                 {price.discount > 0 && (
-                    <p className="flex items-center ml-1">
-                        (<span className='text-green-500'>-{price.discount}%</span>)
-                    </p>
+                    <>
+                        <p className="text-neutral-500">P{price.value} million</p>
+                        <p className="flex items-center ml-1">
+                            (<span className='text-green-500'>-{price.discount}%</span>)
+                        </p>
+                    </>
                 )}
             </div>
         </div>
