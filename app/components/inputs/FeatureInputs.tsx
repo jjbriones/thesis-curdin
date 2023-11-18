@@ -44,7 +44,7 @@ function Forms({ features, setFeatures, setEstimatedPrice, setEstimatedPriceRang
 
     return (
         <form>
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {Object.keys(features).map((feature, index) => (
                     <div key={index}>
                         <label
@@ -84,15 +84,15 @@ function Forms({ features, setFeatures, setEstimatedPrice, setEstimatedPriceRang
                         <option value="Linear">Linear</option>
                     </select>
                 </div>
-                <div className="flex justify-end">
-                    <button
-                        type="submit"
-                        onClick={handleSubmit}
-                        className="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
-                    >
-                        Estimate
-                    </button>
-                </div>
+            </div>
+            <div className="flex justify-end">
+                <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize bg-blue-600 rounded-full hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                >
+                    Estimate
+                </button>
             </div>
         </form>
     );
@@ -111,56 +111,58 @@ function FeatureInputs() {
     const [estimatedPriceRange, setEstimatedPriceRange] = useState([0.0, 0.0]);
 
     return (
-        <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-            <div className="flex justify-between mb-5">
-                <div>
-                    <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                        Price Estimator
-                    </h5>
-                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                        Input your values to calculate the estimated price in millions
-                    </p>
+        <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 mx-auto">
+            <div className="flex flex-col mb-4">
+                <div className="flex justify-center mb-5">
+                    <div>
+                        <h5 className="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                            Price Estimator
+                        </h5>
+                        <p className="text-center font-normal text-gray-500 dark:text-gray-400">
+                            Input your values to calculate the estimated price in millions
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-row flex-wrap justify-between mx-2 mb-4">
-                <div>
-                    <Forms
-                        features={features}
-                        setFeatures={setFeatures}
-                        setEstimatedPrice={setEstimatedPrice}
-                        setEstimatedPriceRange={setEstimatedPriceRange}
-                    />
-                </div>
-                <div>
-                    <Card>
-                        <div className="flex justify-between mb-5">
-                            <div>
-                                <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                    Estimated Price
-                                </h5>
-                                <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                    {estimatedPrice < 0
-                                        ? 'Please input values'
-                                        : estimatedPrice + ' million'}
-                                </p>
+                <div className="flex flex-row flex-wrap justify-center">
+                    <div className="p-4">
+                        <Forms
+                            features={features}
+                            setFeatures={setFeatures}
+                            setEstimatedPrice={setEstimatedPrice}
+                            setEstimatedPriceRange={setEstimatedPriceRange}
+                        />
+                    </div>
+                    <div className="p-4">
+                        <Card>
+                            <div className="flex justify-between">
+                                <div>
+                                    <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">
+                                        Estimated Price
+                                    </h5>
+                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                        {estimatedPrice < 0
+                                            ? 'Please input values'
+                                            : estimatedPrice + ' million'}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
-                    <Card className={'mt-4'}>
-                        <div className="flex justify-between mb-5">
-                            <div>
-                                <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                    Estimated Price Range (+-2%)
-                                </h5>
-                                <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                                    {estimatedPriceRange[0] < 0
-                                        ? 'Please input values'
-                                        : estimatedPriceRange[0] + ' - ' + estimatedPriceRange[1] + ' million'
-                                    }
-                                </p>
+                        </Card>
+                        <Card className={'mt-4'}>
+                            <div className="flex justify-between">
+                                <div>
+                                    <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">
+                                        Estimated Price Range (+-2%)
+                                    </h5>
+                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                        {estimatedPriceRange[0] < 0
+                                            ? 'Please input values'
+                                            : estimatedPriceRange[0] + ' - ' + estimatedPriceRange[1] + ' million'
+                                        }
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </div>
                 </div>
             </div>
         </div>
