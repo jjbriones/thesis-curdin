@@ -77,9 +77,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="font-semibold text-lg">{data.title}</div>
         <div className="font-light text-neutral-500">
-          {data.roomCount} bds | {data.bathroomCount} ba | {data.cityLocation}
+          {data.roomCount} bds | {data.bathroomCount} ba | {data.cityLocation} |{' '}
+          {data.barangayLocation}
         </div>
-        <div className="font-semibold">₱{data.price}</div>
+        <div className="font-semibold">₱{data.price / 1000000} million</div>
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
