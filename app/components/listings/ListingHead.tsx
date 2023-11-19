@@ -8,8 +8,6 @@ import { SafeUser } from '@/app/types';
 
 import Heading from '../Heading';
 import HeartButton from '../HeartButton';
-import { Button } from 'flowbite-react';
-import { MouseEventHandler, useState } from 'react';
 
 interface ListingHeadProps {
     title: string;
@@ -19,7 +17,6 @@ interface ListingHeadProps {
     currentUser?: SafeUser | null;
     city?: string;
     barangay?: string;
-    editButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
@@ -29,8 +26,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
     id,
     currentUser,
     city,
-    barangay,
-    editButtonOnClick,
+    barangay
 }) => {
     const { getByValue } = useCountries();
     const { getRegionValue } = useRegions();
@@ -50,11 +46,6 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                         {barangay && <span> | </span>}
                         {barangay && <span>{barangay}</span>}
                     </div>
-                </div>
-                <div>
-                    <Button onClick={editButtonOnClick} color='blue' pill>
-                        Edit Property
-                    </Button>
                 </div>
             </div>
             <div className="w-full h-[60vh] overflow-hidden  rounded-xl relative">

@@ -4,10 +4,9 @@ import Container from '@/app/components/Container';
 import { categories } from '@/app/components/Navbar/Categories';
 import ListingHead from '@/app/components/listings/ListingHead';
 import ListingInfo from '@/app/components/listings/ListingInfo';
-import EditPropertyModal from '@/app/components/modals/EditPropertyModal';
 import { SafeListing, SafeUser } from '@/app/types';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 interface ListingClientProps {
     listing: SafeListing & {
@@ -17,8 +16,6 @@ interface ListingClientProps {
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser }) => {
-    const [openModal, setOpenModal] = useState(false);
-
     const category = useMemo(() => {
         return categories.find((items) => items.label === listing.category);
     }, [listing.category]);
@@ -34,7 +31,6 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser }) =
                         id={listing.id}
                         currentUser={currentUser}
                         key={listing.id}
-                        editButtonOnClick={() => setOpenModal(true)}
                     />
                     <div className="grid grid-cols-1 mt-6">
                         <ListingInfo
@@ -54,12 +50,6 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser }) =
                     </div>
                 </div>
             </div>
-
-            <EditPropertyModal
-                listing={listing}
-                open={openModal}
-                onClose={() => setOpenModal(false)}
-            />
 
         </Container>
     );
