@@ -28,7 +28,7 @@ export default async function getListings(params: IListingsParams) {
       yard,
       category,
       locationValue,
-      cityValue,
+      cityLocation,
       barangayLocation,
     } = params;
 
@@ -77,8 +77,8 @@ export default async function getListings(params: IListingsParams) {
         gte: +area,
       };
     }
-    if (cityValue) {
-      query.cityValue = cityValue;
+    if (cityLocation) {
+      query.cityLocation = cityLocation;
     }
 
     if (barangayLocation) {
