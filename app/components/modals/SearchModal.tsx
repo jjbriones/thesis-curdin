@@ -28,8 +28,9 @@ const SearchModal = () => {
   const [bathroomCount, setBathroomCount] = useState(1);
   const [areaRange, setAreaRange] = useState([0, 100]);
   const [location, setLocation] = useState<RegionSelectValue>();
-  const [barangay, setBarangay] = useState<BarangaySelectValue>();
-  const [city, setCity] = useState<CitySelectValue>();
+  const [barangayLocation, setBarangayLocation] =
+    useState<BarangaySelectValue>();
+  const [cityLocation, setCityLocation] = useState<CitySelectValue>();
   const [area, setArea] = useState(0);
   const [carport, setCarport] = useState(1);
   const [yard, setYard] = useState(0);
@@ -60,8 +61,8 @@ const SearchModal = () => {
       bathroomCount,
       areaRange: areaRange,
       locationValue: location?.value,
-      barangayValue: barangay?.value,
-      cityValue: city?.value,
+      barangayLocation: barangayLocation?.value,
+      cityLocation: cityLocation?.value,
       area,
       carport,
       yard,
@@ -89,8 +90,8 @@ const SearchModal = () => {
     router,
     onNext,
     params,
-    barangay,
-    city,
+    barangayLocation,
+    cityLocation,
     yard,
     area,
     carport,
@@ -124,18 +125,18 @@ const SearchModal = () => {
       {location?.value === 'REGION VI (WESTERN VISAYAS)' ? (
         <div>
           <CitySelect
-            value={city}
+            value={cityLocation}
             onChange={(value) => {
-              setCity(value as CitySelectValue);
+              setCityLocation(value as CitySelectValue);
             }}
           />
 
-          {city?.value === 'BACOLOD CITY (Capital)' ? (
+          {cityLocation?.value === 'BACOLOD CITY (Capital)' ? (
             <div className="mt-8">
               <BarangaySelect
-                value={barangay}
+                value={barangayLocation}
                 onChange={(value) => {
-                  setBarangay(value as BarangaySelectValue);
+                  setBarangayLocation(value as BarangaySelectValue);
                 }}
               />
             </div>
