@@ -17,6 +17,8 @@ interface ListingHeadProps {
     imageSrc: string;
     id: string;
     currentUser?: SafeUser | null;
+    city?: string;
+    barangay?: string;
     editButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -26,12 +28,12 @@ const ListingHead: React.FC<ListingHeadProps> = ({
     imageSrc,
     id,
     currentUser,
+    city,
+    barangay,
     editButtonOnClick,
 }) => {
     const { getByValue } = useCountries();
     const { getRegionValue } = useRegions();
-
-    const [openModal, setOpenModal] = useState(false);
 
     const location = getByValue(locationValue);
     const region = getRegionValue(locationValue);
@@ -43,6 +45,10 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                     <Heading title={title} />
                     <div className="flex flex-row items-center gap-2 justify-start text-neutral-500 text-center text-lg font-light">
                         {`${region?.value}`}
+                        {city && <span> | </span>}
+                        {city && <span>{city}</span>}
+                        {barangay && <span> | </span>}
+                        {barangay && <span>{barangay}</span>}
                     </div>
                 </div>
                 <div>
@@ -64,6 +70,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             </div>
         </>
     );
+
 };
 
 export default ListingHead;
