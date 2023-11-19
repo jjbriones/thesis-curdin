@@ -34,6 +34,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
             id={listing.id}
             currentUser={currentUser}
             key={listing.id}
+            city={listing.cityLocation}
+            barangay={listing.barangayLocation}
           />
           <div className="grid grid-cols-1 mt-6">
             <ListingInfo
