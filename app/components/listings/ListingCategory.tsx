@@ -32,22 +32,22 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
       setPrice({
         value: (estimatedPrice * 0.8).toFixed(2),
         discount: 20,
-        minRange: estimatedPrice * 0.8 * 0.98,
-        maxRange: estimatedPrice * 0.8 * 1.02,
+        minRange: estimatedPrice * 0.8 * 0.975,
+        maxRange: estimatedPrice * 0.8 * 1.025,
       });
     } else if (label.includes('Standard')) {
       setPrice({
         value: (estimatedPrice * 0.7).toFixed(2),
         discount: 35,
-        minRange: estimatedPrice * 0.7 * 0.98,
-        maxRange: estimatedPrice * 0.7 * 1.02,
+        minRange: estimatedPrice * 0.7 * 0.975,
+        maxRange: estimatedPrice * 0.7 * 1.025,
       });
     } else {
       setPrice({
         value: estimatedPrice.toFixed(2),
         discount: 0,
-        minRange: estimatedPrice * 0.98,
-        maxRange: estimatedPrice * 1.02,
+        minRange: estimatedPrice * 0.975,
+        maxRange: estimatedPrice * 1.025,
       });
     }
   }, [label, price, setPrice]);
