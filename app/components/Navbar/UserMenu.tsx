@@ -9,7 +9,6 @@ import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/types';
 import Avatar from './Avatar';
 import useAddPropertyModal from '@/app/hooks/useAddPropertyModal';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 interface UserMenuProps {

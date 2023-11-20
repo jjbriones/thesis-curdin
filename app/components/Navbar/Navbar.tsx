@@ -2,7 +2,6 @@
 
 import Container from '../Container';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import Search from './Search';
 import UserMenu from './UserMenu';
 import { SafeUser } from '@/app/types';
