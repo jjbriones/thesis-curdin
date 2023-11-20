@@ -4,7 +4,9 @@ import { SafeUser } from '@/app/types';
 import { IconType } from 'react-icons';
 import ListingCategory from './ListingCategory';
 import dynamic from 'next/dynamic';
+import { RiMessengerLine } from 'react-icons/ri';
 import { useState, useEffect } from 'react';
+import { AiOutlineInstagram } from 'react-icons/ai';
 
 const Map = dynamic(() => import('../Map'), { ssr: false });
 interface ListingInfoProps {
@@ -122,7 +124,13 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <hr />
       <div className="text-lg font-light text-neutral-500">{description}</div>
       <hr />
-      <Map center={[10.67, 122.95]} />
+      <div>
+        <p className="font-semibold text-lg">Socials</p>
+        <div className="mt-8 flex gap-2 items-center">
+          <RiMessengerLine size={26} />
+          <AiOutlineInstagram size={36} />
+        </div>
+      </div>
     </div>
   );
 };
