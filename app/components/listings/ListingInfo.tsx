@@ -122,7 +122,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <hr />
       <div className="text-lg font-light text-neutral-500">{description}</div>
       <hr />
-      <Map center={[0, 0]} />
+      <Map center={[10.67, 122.95]} />
     </div>
   );
 };
