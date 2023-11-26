@@ -1,86 +1,42 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { IconType } from 'react-icons';
+import React from 'react';
+import {IconType} from 'react-icons';
 
 interface ListingCategoryProps {
-  icon: IconType;
-  label: string;
-  description: string;
-  estimatedPrice?: number;
+    icon: IconType;
+    label: string;
+    description: string;
+    estimatedPrice: {
+        value: string | number;
+        discount: number;
+        minRange: number;
+        maxRange: number;
+    };
 }
 
-const ListingCategory: React.FC<ListingCategoryProps> = ({
-  icon: Icon,
-  label,
-  description,
-  estimatedPrice,
-}) => {
-  const [price, setPrice] = useState({
-    value: '',
-    discount: 0.0,
-    minRange: 0,
-    maxRange: 0,
-  });
-
-  const [range, setRange] = useState('');
-
-  useEffect(() => {
-    if (estimatedPrice === undefined) return;
-
-    if (label.includes('Elegant')) {
-      setPrice({
-        value: (estimatedPrice * 0.8).toFixed(2),
-        discount: 20,
-        minRange: estimatedPrice * 0.8 * 0.975,
-        maxRange: estimatedPrice * 0.8 * 1.025,
-      });
-    } else if (label.includes('Standard')) {
-      setPrice({
-        value: (estimatedPrice * 0.7).toFixed(2),
-        discount: 35,
-        minRange: estimatedPrice * 0.7 * 0.975,
-        maxRange: estimatedPrice * 0.7 * 1.025,
-      });
-    } else {
-      setPrice({
-        value: estimatedPrice.toFixed(2),
-        discount: 0,
-        minRange: estimatedPrice * 0.975,
-        maxRange: estimatedPrice * 1.025,
-      });
-    }
-  }, [label, price, setPrice]);
-
-  useEffect(() => {
-    setRange(
-      '₱' +
-        price.minRange.toFixed(2) +
-        ' million - ₱' +
-        price.maxRange.toFixed(2) +
-        ' million'
+const ListingCategory: React.FC<ListingCategoryProps> = ({icon: Icon, label, description, estimatedPrice,}) => {
+    return (
+        <div className="flex justify-between">
+            <div className="flex flex-col gap-6">
+                <div className="flex flex-row items-center gap-4">
+                    <Icon size={40} className="text-neutral-600"/>
+                    <div className="flex flex-col gap-1">
+                        <div className="text-xl font-semibold">{label}</div>
+                        <div className="text-neutral-500 font-light">{description}</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div className="font-semibold text-lg">Estimated Price Range</div>
+                <div className="flex items-center">
+                    <p className="text-neutral-500">
+                        ₱{estimatedPrice.minRange.toFixed(2)} million - ₱{estimatedPrice.maxRange.toFixed(2)} million
+                    </p>
+                </div>
+            </div>
+        </div>
     );
-  }, [price]);
-
-  return (
-    <div className="flex justify-between">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-row items-center gap-4">
-          <Icon size={40} className="text-neutral-600" />
-          <div className="flex flex-col gap-1">
-            <div className="text-xl font-semibold">{label}</div>
-            <div className="text-neutral-500 font-light">{description}</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="font-semibold text-lg">Estimated Price Range</div>
-        <div className="flex items-center">
-          <p className="text-neutral-500">{range}</p>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 export default ListingCategory;
