@@ -103,7 +103,7 @@ function Forms({
   );
 }
 
-function FeatureInputs() {
+const FeatureInputs = () => {
   const [features, setFeatures] = useState<Feature>({
     AreaSQM: 0,
     Floors: 0,
@@ -207,6 +207,6 @@ function FeatureInputs() {
       </div>
     </div>
   );
-}
+};
 
 export default FeatureInputs;
