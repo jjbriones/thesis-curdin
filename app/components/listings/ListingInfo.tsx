@@ -5,7 +5,7 @@ import {IconType} from 'react-icons';
 import ListingCategory from './ListingCategory';
 import dynamic from 'next/dynamic';
 import {RiMessengerLine} from 'react-icons/ri';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AiOutlineInstagram} from 'react-icons/ai';
 
 const Map = dynamic(() => import('../Map'), {ssr: false});
@@ -33,19 +33,19 @@ interface ListingInfoProps {
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
-                                                     user,
-                                                     category,
-                                                     description,
-                                                     roomCount,
-                                                     bathroomCount,
-                                                     locationValue,
-                                                     price,
-                                                     area,
-                                                     carport,
-                                                     yard,
-                                                     estimatedPrice,
-                                                     floorCount,
-                                                 }) => {
+    user,
+    category,
+    description,
+    roomCount,
+    bathroomCount,
+    locationValue,
+    price,
+    area,
+    carport,
+    yard,
+    estimatedPrice,
+    floorCount,
+}) => {
     const [predictedPrice, setPredictedPrice] = useState({
         value: estimatedPrice?.toFixed(2) ?? 0,
         discount: 0.0,

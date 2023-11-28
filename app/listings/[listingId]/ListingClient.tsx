@@ -1,12 +1,12 @@
 'use client';
 
 import Container from '@/app/components/Container';
-import { categories } from '@/app/components/Navbar/Categories';
+import {categories} from '@/app/components/Navbar/Categories';
 import ListingHead from '@/app/components/listings/ListingHead';
 import ListingInfo from '@/app/components/listings/ListingInfo';
-import { SafeListing, SafeUser } from '@/app/types';
+import {SafeListing, SafeUser} from '@/app/types';
 
-import { useMemo } from 'react';
+import React, {useMemo} from 'react';
 
 interface ListingClientProps {
     listing: SafeListing & {
@@ -15,7 +15,7 @@ interface ListingClientProps {
     currentUser?: SafeUser | null;
 }
 
-const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser }) => {
+const ListingClient: React.FC<ListingClientProps> = ({listing, currentUser}) => {
     const category = useMemo(() => {
         return categories.find((items) => items.label === listing.category);
     }, [listing.category]);
