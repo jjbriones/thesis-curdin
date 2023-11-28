@@ -1,13 +1,13 @@
 'use client';
-import { ChangeEvent, MouseEvent, useState } from 'react';
-import { Card } from 'flowbite-react';
-import { Feature } from '@/app/types';
+import {ChangeEvent, MouseEvent, useState} from 'react';
+import {Card} from 'flowbite-react';
+import {Feature} from '@/app/types';
 
-function Forms({ features, setFeatures, setEstimatedPrice, setEstimatedPriceRange }) {
+function Forms({features, setFeatures, setEstimatedPrice, setEstimatedPriceRange}) {
     const [selectedModel, setSelectedModel] = useState('Ridge');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
+        const {value} = event.target;
 
         if (value === '' || RegExp(/^\d+(\.\d{0,2})?$/).exec(value)) {
             setFeatures({
@@ -24,8 +24,8 @@ function Forms({ features, setFeatures, setEstimatedPrice, setEstimatedPriceRang
 
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ model: selectedModel, features: features }),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({model: selectedModel, features: features}),
         };
 
         fetch('http://127.0.0.1:8080/api/estimate', requestOptions)
@@ -134,24 +134,24 @@ function FeatureInputs() {
                     </div>
                     <div className="p-4">
                         <Card>
-                            <div className="flex justify-between">
+                            <div className="flex flex-col gap-5">
                                 <div>
                                     <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">
                                         Estimated Price
                                     </h5>
-                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                    <p className="font-normal text-gray-500 dark:text-gray-400">
                                         {estimatedPrice < 0
                                             ? 'Please input values'
                                             : estimatedPrice + ' million'}
                                     </p>
                                 </div>
-                            </div>
-                        </Card>
-                        <Card className={'mt-4'}>
-                            <div className="flex justify-between">
                                 <div>
-                                    <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">
-                                        Estimated Price Range (+-2%)
+                                    <h5 className="leading-none text-lg text-gray-900 dark:text-white pb-2">
+                                        Range (
+                                        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                            -+ 2%
+                                        </span>
+                                        )
                                     </h5>
                                     <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                                         {estimatedPriceRange[0] < 0
@@ -159,6 +159,42 @@ function FeatureInputs() {
                                             : estimatedPriceRange[0] + ' - ' + estimatedPriceRange[1] + ' million'
                                         }
                                     </p>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card className={'mt-4'}>
+                            <div className="flex flex-col">
+                                <h5 className="text-2xl font-bold text-gray-900 dark:text-white pb-2 mb-3">
+                                    Categories
+                                </h5>
+                                <div>
+                                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2">
+                                        Luxury:
+                                        <p className="font-normal text-gray-500 dark:text-gray-400">
+                                            {estimatedPrice < 0 ?
+                                                '0.00' :
+                                                estimatedPrice + ' million'
+                                            }
+                                        </p>
+                                    </div>
+                                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2">
+                                        Elegant: (20% off)
+                                        <p className="font-normal text-gray-500 dark:text-gray-400">
+                                            {estimatedPrice < 0 ?
+                                                '0.00' :
+                                                (estimatedPrice * 0.8).toFixed(2) + ' million'
+                                            }
+                                        </p>
+                                    </div>
+                                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2">
+                                        Standard: (30% off)
+                                        <p className="font-normal text-gray-500 dark:text-gray-400">
+                                            {estimatedPrice < 0 ?
+                                                '0.00' :
+                                                (estimatedPrice * 0.7).toFixed(2) + ' million'
+                                            }
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </Card>
