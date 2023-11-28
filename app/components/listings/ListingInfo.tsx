@@ -5,7 +5,7 @@ import { IconType } from 'react-icons';
 import ListingCategory from './ListingCategory';
 import dynamic from 'next/dynamic';
 import { RiMessengerLine } from 'react-icons/ri';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineInstagram } from 'react-icons/ai';
 
 const Map = dynamic(() => import('../Map'), { ssr: false });
