@@ -31,15 +31,6 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
           </div>
         </div>
       </div>
-      <div>
-        <div className="font-semibold text-lg">Estimated Price Range</div>
-        <div className="flex items-center">
-          <p className="text-neutral-500">
-            ₱{estimatedPrice.minRange.toFixed(2)} million - ₱
-            {estimatedPrice.maxRange.toFixed(2)} million
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

@@ -152,11 +152,7 @@ const FeatureInputs = () => {
                 </div>
                 <div>
                   <h5 className="leading-none text-lg text-gray-900 dark:text-white pb-2">
-                    Range (
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                      -+ 2%
-                    </span>
-                    )
+                    Range
                   </h5>
                   <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                     {estimatedPriceRange[0] < 0
