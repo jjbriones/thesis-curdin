@@ -142,58 +142,52 @@ const FeatureInputs = () => {
               <div className="flex flex-col gap-5">
                 <div>
                   <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">
-                    Estimated Price
+                    by Category
                   </h5>
                   <p className="font-normal text-gray-500 dark:text-gray-400">
-                    {estimatedPrice < 0
+                    {estimatedPrice <= 0
                       ? 'Please input values'
-                      : estimatedPrice + ' million'}
+                      : 'Here are the predicted prices based on the finish of the house'}
                   </p>
                 </div>
                 <div>
-                  <h5 className="leading-none text-lg text-gray-900 dark:text-white pb-2">
-                    Range
-                  </h5>
-                  <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    {estimatedPriceRange[0] < 0
-                      ? 'Please input values'
-                      : estimatedPriceRange[0] +
-                        ' - ' +
-                        estimatedPriceRange[1] +
-                        ' million'}
-                  </p>
-                </div>
-              </div>
-            </Card>
-            <Card className={'mt-4'}>
-              <div className="flex flex-col">
-                <h5 className="text-2xl font-bold text-gray-900 dark:text-white pb-2 mb-3">
-                  Categories
-                </h5>
-                <div>
-                  <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                    Luxury
-                    <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                      {estimatedPrice < 0
-                        ? '0.00'
-                        : estimatedPrice + ' million'}
-                    </p>
-                  </div>
-                  <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                    Elegant
-                    <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                      {estimatedPrice < 0
-                        ? '0.00'
-                        : (estimatedPrice * 0.8).toFixed(2) + ' million'}
-                    </p>
-                  </div>
-                  <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                    Standard
-                    <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                      {estimatedPrice < 0
-                        ? '0.00'
-                        : (estimatedPrice * 0.7).toFixed(2) + ' million'}
-                    </p>
+                  {' '}
+                  <div className="flex flex-col">
+                    <div>
+                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                        Luxury
+                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                          {estimatedPrice < 0
+                            ? '0.00'
+                            : (estimatedPrice * 0.955).toFixed(2) +
+                              ' million - ' +
+                              (estimatedPrice * 1.045).toFixed(2) +
+                              ' million'}
+                        </p>
+                      </div>
+                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                        Elegant
+                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                          {estimatedPrice < 0
+                            ? '0.00'
+                            : (estimatedPrice * 0.8 * 0.955).toFixed(2) +
+                              ' million - ' +
+                              (estimatedPrice * 0.8 * 1.045).toFixed(2) +
+                              ' million'}
+                        </p>
+                      </div>
+                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                        Standard
+                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                          {estimatedPrice < 0
+                            ? '0.00'
+                            : (estimatedPrice * 0.7 * 0.955).toFixed(2) +
+                              ' million - ' +
+                              (estimatedPrice * 0.7 * 1.045).toFixed(2) +
+                              ' million'}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
