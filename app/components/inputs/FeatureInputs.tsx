@@ -38,7 +38,7 @@ function Forms({
       .then((data) => {
         setEstimatedPrice(data.estimated);
         setEstimatedPriceRange(() => {
-          const range = 0.02;
+          const range = 0.045;
           const min = (data.estimated - data.estimated * range).toFixed(2);
           const max = (data.estimated + data.estimated * range).toFixed(2);
 
