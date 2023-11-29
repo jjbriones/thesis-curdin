@@ -153,40 +153,39 @@ const FeatureInputs = () => {
                 <div>
                   {' '}
                   <div className="flex flex-col">
-                    <div>
-                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                        Luxury
-                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                          {estimatedPrice < 0
-                            ? '0.00'
-                            : (estimatedPrice * 0.955).toFixed(2) +
-                              ' million - ' +
-                              (estimatedPrice * 1.045).toFixed(2) +
-                              ' million'}
-                        </p>
-                      </div>
-                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                        Elegant
-                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                          {estimatedPrice < 0
-                            ? '0.00'
-                            : (estimatedPrice * 0.8 * 0.955).toFixed(2) +
-                              ' million - ' +
-                              (estimatedPrice * 0.8 * 1.045).toFixed(2) +
-                              ' million'}
-                        </p>
-                      </div>
-                      <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
-                        Standard
-                        <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
-                          {estimatedPrice < 0
-                            ? '0.00'
-                            : (estimatedPrice * 0.7 * 0.955).toFixed(2) +
-                              ' million - ' +
-                              (estimatedPrice * 0.7 * 1.045).toFixed(2) +
-                              ' million'}
-                        </p>
-                      </div>
+                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                      Standard
+                      <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                        {estimatedPrice < 0
+                          ? '0.00'
+                          : (estimatedPrice * 0.7 * 0.955).toFixed(2) +
+                            ' million - ' +
+                            (estimatedPrice * 0.7 * 1.045).toFixed(2) +
+                            ' million'}
+                      </p>
+                    </div>
+
+                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                      Elegant
+                      <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                        {estimatedPrice < 0
+                          ? '0.00'
+                          : (estimatedPrice * 0.8 * 0.955).toFixed(2) +
+                            ' million - ' +
+                            (estimatedPrice * 0.8 * 1.045).toFixed(2) +
+                            ' million'}
+                      </p>
+                    </div>
+                    <div className="leading-none text-lg text-gray-900 dark:text-white pb-2 mt-4">
+                      Luxury
+                      <p className="font-normal text-gray-500 dark:text-gray-400 mt-2">
+                        {estimatedPrice < 0
+                          ? '0.00'
+                          : (estimatedPrice * 0.955).toFixed(2) +
+                            ' million - ' +
+                            (estimatedPrice * 1.045).toFixed(2) +
+                            ' million'}
+                      </p>
                     </div>
                   </div>
                 </div>
