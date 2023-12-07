@@ -120,8 +120,12 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <div>
         <p className="font-semibold text-lg">Socials</p>
         <div className="mt-8 flex gap-2 items-center">
-          <RiMessengerLine size={26} />
-          <AiOutlineInstagram size={36} />
+          <a href="https://www.messenger.com">
+            <RiMessengerLine size={26} />
+          </a>
+          <a href="https://www.instagram.com">
+            <AiOutlineInstagram size={36} />
+          </a>
         </div>
       </div>
     </div>
