@@ -36,7 +36,7 @@ const Categories = () => {
   }
   return (
     <Container>
-      <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
+      <div className="pt-4 flex flex-row items-center justify-center gap-10 overflow-x-auto">
         {categories.map((item) => (
           <CategoryBox
             key={item.label}

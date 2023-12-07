@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Nunito } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import Navbar from './components/Navbar/Navbar';
 
 import RegisterModal from './components/modals/RegisterModal';
@@ -12,7 +12,6 @@ import getCurrentUser from './actions/getCurrentUser';
 import AddPropertyModal from './components/modals/AddPropertyModal';
 import SearchModal from './components/modals/SearchModal';
 
-const inter = Inter({ subsets: ['latin'] });
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
