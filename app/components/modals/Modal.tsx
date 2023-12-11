@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { IoCloseCircleOutline } from 'react-icons/io5';
+import React, {useCallback, useEffect, useState} from 'react';
+import {IoCloseCircleOutline} from 'react-icons/io5';
 import Button from '../Button';
 
 interface ModalProps {
@@ -15,6 +15,7 @@ interface ModalProps {
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
+    secondaryActionDisabled?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -28,6 +29,7 @@ const Modal: React.FC<ModalProps> = ({
     disabled,
     secondaryAction,
     secondaryActionLabel,
+    secondaryActionDisabled,
 }) => {
     const [showModal, setShowModal] = useState(isOpen);
 
@@ -72,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
                                 onClick={handleClose}
                                 className="p-1 border-0 hover:opacity-70 transition absolute left-9"
                             >
-                                <IoCloseCircleOutline size={18} />
+                                <IoCloseCircleOutline size={18}/>
                             </button>
                             <div className="text-lg font-semibold">{title}</div>
                         </div>
@@ -84,7 +86,7 @@ const Modal: React.FC<ModalProps> = ({
                                 {secondaryAction && secondaryActionLabel && (
                                     <Button
                                         label={secondaryActionLabel}
-                                        disabled={disabled}
+                                        disabled={secondaryActionDisabled}
                                         onClick={handleSecondaryAction}
                                         outline
                                     />
