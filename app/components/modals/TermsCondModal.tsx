@@ -1,3 +1,5 @@
+import React from "react";
+
 interface TermsCondModalProps {
     open: boolean;
     setOpen: (open: boolean) => void;
@@ -42,13 +44,13 @@ const termsList = [
     }
 ];
 
-const TermsCondModal = ({open, setOpen}) => {
+const TermsCondModal: React.FC<TermsCondModalProps> = ({open, setOpen}) => {
     if (!open) return null
 
     return (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div className="relative p-4 w-full max-w-2xl max-h-full">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative bg-gray-100 rounded-lg shadow dark:bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             Terms and Conditions
