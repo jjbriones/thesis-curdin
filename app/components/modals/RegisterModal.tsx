@@ -11,10 +11,13 @@ import {toast} from 'react-hot-toast';
 import Button from '../Button';
 import {signIn} from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
+import TermsCondModal from "@/app/components/modals/TermsCondModal";
 
 const ContentRegisterModal = () => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+
+    const [showTermsModal, setShowTermsModal] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [password, setPassword] = useState('');
@@ -135,7 +138,7 @@ const ContentRegisterModal = () => {
                        className="w-4 h-4 text-orange-400 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label htmlFor="agree-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    I agree with the <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">terms and conditions</a>.
+                    I agree with the <a href="#" onClick={() => setShowTermsModal(true)} className="text-blue-600 dark:text-blue-500 hover:underline">terms and conditions</a>.
                 </label>
             </div>
 
@@ -178,22 +181,25 @@ const ContentRegisterModal = () => {
     );
 
     return (
-        <Modal
-            disabled={
-                loading ||
-                (!password || !confirmPassword || password !== confirmPassword) ||
-                !agree
-            }
-            isOpen={registerModal.isOpen}
-            actionLabel="Continue"
-            onSubmit={handleSubmit(onSubmit)}
-            onClose={registerModal.close}
-            body={bodyContent}
-            title={'Sign Up'}
-            footer={footerContent}
-            secondaryAction={registerModal.close}
-            secondaryActionLabel={'Cancel'}
-        />
+        <>
+            <Modal
+                disabled={
+                    loading ||
+                    (!password || !confirmPassword || password !== confirmPassword) ||
+                    !agree
+                }
+                isOpen={registerModal.isOpen}
+                actionLabel="Continue"
+                onSubmit={handleSubmit(onSubmit)}
+                onClose={registerModal.close}
+                body={bodyContent}
+                title={'Sign Up'}
+                footer={footerContent}
+                secondaryAction={registerModal.close}
+                secondaryActionLabel={'Cancel'}
+            />
+            <TermsCondModal open={showTermsModal} setOpen={setShowTermsModal}/>
+        </>
     );
 };
 
