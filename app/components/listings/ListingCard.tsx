@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import useCountries from '@/app/hooks/useCountries';
-import { SafeListing, SafeUser } from '@/app/types';
-import { useRouter } from 'next/navigation';
-import { MouseEvent, useCallback, useMemo } from 'react';
-import Image from 'next/image';
-import HeartButton from '../HeartButton';
-import useBarangay from '@/app/hooks/useBarangay';
-import useCities from '@/app/hooks/useCities';
-import Button from '../Button';
-import Link from 'next/link';
+import useCountries from "@/app/hooks/useCountries";
+import { SafeListing, SafeUser } from "@/app/types";
+import { useRouter } from "next/navigation";
+import { MouseEvent, useCallback, useMemo } from "react";
+import Image from "next/image";
+import HeartButton from "../HeartButton";
+import useBarangay from "@/app/hooks/useBarangay";
+import useCities from "@/app/hooks/useCities";
+import Button from "../Button";
+import Link from "next/link";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -29,7 +29,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   onAction,
   disabled,
   actionLabel,
-  actionId = '',
+  actionId = "",
   currentUser,
   editActionBtn,
   editActionBtnLabel,
@@ -77,10 +77,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
           <div className="font-semibold text-lg">{data.title}</div>
           <div className="font-light text-neutral-500">
-            {data.roomCount} bds | {data.bathroomCount} ba | {data.cityLocation}{' '}
+            {data.roomCount} bds | {data.bathroomCount} ba | {data.cityLocation}{" "}
             | {data.barangayLocation}
           </div>
-          <div className="font-semibold">₱{data.price / 1000000} million</div>
+          <div className="font-semibold">
+            ₱{(data.price / 1000000).toFixed(2)} million
+          </div>
         </div>
       </Link>
       {onAction ?? editActionBtn ? (
