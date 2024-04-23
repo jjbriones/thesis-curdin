@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build && cd api && python server.py"
+  publish = ".next/server"
+
+[[redirects]]
+  from = "/*"
+  to = "/.next/server/:splat"
+  status = 200
