@@ -1,6 +1,7 @@
 [build]
-  command = "npm run build && cd api && python server.py"
+  command = "npm run build && cd api && python3 server.py &"
   publish = ".next/server"
+  functions = "functions"
 
 [[redirects]]
   from = "/*"
